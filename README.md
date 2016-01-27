@@ -1,10 +1,15 @@
 # WebToolFunction
 
-** some useful function **
+**WTF is it ?**
 
 2016/1/22 by DKZ
 
 
 
-- wtf
+##List
+
+
+- [**init.less**](#initless) reset css
+
+
 
