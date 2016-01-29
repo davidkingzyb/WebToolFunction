@@ -1,14 +1,14 @@
 .font_serif {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Georgia, 'Times New Roman', SimSun, serif;
 }
 .font_sans_serif {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, SimHei, sans-serif;
 }
 .font_normal {
-  font-family: Arial, Verdana, sans-serif;
+  font-family: Arial, Verdana, SimHei, sans-serif;
 }
 .font_title {
-  font-family: Impact, 'Arial Black', sans-serif;
+  font-family: Impact, 'Arial Black', SimHei, sans-serif;
 }
 .font_fix_width {
   font-family: 'Lucida Console', Monaco, monospace;
@@ -21,17 +21,17 @@
   color: #82dffb;
 }
 .init_bg {
-  background-color: #333;
-  color: white;
+  background-color: white;
+  color: #aaa;
 }
 .init_btn {
-  border: 1px solid white;
+  border: 1px solid #aaa;
   padding: 5px 15px;
   margin: 5px;
-  color: white;
-  font-family: Arial, Verdana, sans-serif;
+  color: #aaa;
+  font-family: Arial, Verdana, SimHei, sans-serif;
   font-size: 15px;
-  background-color: #333;
+  background-color: white;
 }
 .init_btn:hover {
   color: #82dffb;
@@ -41,13 +41,13 @@
   outline: none;
 }
 .init_input {
-  border: 1px solid white;
+  border: 1px solid #aaa;
   padding: 5px 15px;
   margin: 5px;
-  color: white;
-  font-family: Arial, Verdana, sans-serif;
+  color: #aaa;
+  font-family: Arial, Verdana, SimHei, sans-serif;
   font-size: 15px;
-  background-color: #333;
+  background-color: white;
 }
 .init_input:hover {
   color: #82dffb;
@@ -56,25 +56,14 @@
 .init_input:focus {
   outline: none;
 }
-a {
-  text-decoration: none;
-  color: #4078c0;
-}
-a:hover {
-  color: #82dffb;
-}
-body {
-  background-color: #333;
-  color: white;
-}
 .input {
-  border: 1px solid white;
+  border: 1px solid #aaa;
   padding: 5px 15px;
   margin: 5px;
-  color: white;
-  font-family: Arial, Verdana, sans-serif;
+  color: #aaa;
+  font-family: Arial, Verdana, SimHei, sans-serif;
   font-size: 15px;
-  background-color: #333;
+  background-color: white;
 }
 .input:hover {
   color: #82dffb;
@@ -84,13 +73,13 @@ body {
   outline: none;
 }
 .btn {
-  border: 1px solid white;
+  border: 1px solid #aaa;
   padding: 5px 15px;
   margin: 5px;
-  color: white;
-  font-family: Arial, Verdana, sans-serif;
+  color: #aaa;
+  font-family: Arial, Verdana, SimHei, sans-serif;
   font-size: 15px;
-  background-color: #333;
+  background-color: white;
 }
 .btn:hover {
   color: #82dffb;
