@@ -11,11 +11,16 @@
 #  2016/02/20 by DKZ https://davidkingzyb.github.io
 
 # created by DKZ 2015/6
+import sys
+
 from http.server import HTTPServer,CGIHTTPRequestHandler
 import socket
 localIP = socket.gethostbyname(socket.gethostname()) 
 print ("local ip:%s "%localIP)
-port =7654
+if len(sys.argv)==2:
+    port=int(sys.argv[1])
+else:
+    port =7654
 httpd=HTTPServer(('',port),CGIHTTPRequestHandler)
 print ('run server at '+str(httpd.server_port))
 httpd.serve_forever()
