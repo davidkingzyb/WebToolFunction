@@ -38,5 +38,8 @@ var wtf = (function () {
         xhr.open('POST', url, true);
         xhr.send(data);
     };
+    wtf.htmlEscape = function (html) {
+        return html.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    };
     return wtf;
 })();
