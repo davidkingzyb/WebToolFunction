@@ -10,9 +10,10 @@
 
 
 - [**init.less**](#initless) reset css
-- [**webtoolfunction.ts**](#webtoolfunctionts) some useful web tool functions
+- [**wtf.ts**](#wtfts) some useful web tool functions
 - [**spiderman.py**](#spidermanpy) html sprider
 - [**runServer.py**](#runserverpy) a simple server
+- [**wtf**](#wtf) a python lib with some useful tool function
 
 
 ##API
@@ -23,7 +24,7 @@ reset css
 
 	$lessc init.less > static/style.css
 
-###webtoolfunction.ts
+###wtf.ts
 
 some useful web tool functions
 
@@ -35,49 +36,66 @@ use webtoolfunction.js:
 
 ajax GET function
 
-	wtf.get('http://www.test.com/get?q=xx',function(data){
-		console.log(data);
-	})
+```js
+wtf.get('http://www.test.com/get?q=xx',function(data){
+	console.log(data);
+})
+```
 	
 ####wtf.post(url,data,callback)
 
 ajax Post function
 
-	wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
-		console.log(data);
-	})
+```js
+wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
+	console.log(data);
+})
+```
 
 ###spiderman.py
 
 html spider use python2.x
 
-	#get html tag attr arr
-    html='<a id="dkz" href="hello"></a>'
-    parser=getAttr()
-    parser.setTargetAttr('href')
-    parser.setTagSelector('a')
-    parser.selectAttrSelector('id','dkz')
-    parser.feed(html)
-    arr=parser.getResult()
-    print(arr)
-	
-	#spider
-    print(spider('http://davidkingzyb.github.io'))
+```py
+import spiderman
+#get html tag attr arr
+html='<a id="dkz" href="hello"></a>'
+parser=spiderman.getAttr()
+parser.setTargetAttr('href')
+parser.setTagSelector('a')
+parser.selectAttrSelector('id','dkz')
+parser.feed(html)
+arr=parser.getResult()
+print(arr)
 
-	#get data
-    string='<aaa>xxxxx<bbb>'
-    print(subString(string,'<aaa>','<bbb>'))
+#spider
+print(spiderman.spider('http://davidkingzyb.github.io'))
 
-	#remove tag in data
-    string='<a>xxx<aa>xxxx<aa><aa>xxx</aa>'
-    print(removeTags(string))
+#get data
+string='<aaa>xxxxx<bbb>'
+print(spiderman.subString(string,'<aaa>','<bbb>'))
 
-	#remove entityref in data
-    string='xxx&nbsp;xxx&nbsp;xxx'
-    print(removeEntityref(string))
+#remove tag in data
+string='<a>xxx<aa>xxxx<aa><aa>xxx</aa>'
+print(spiderman.removeTags(string))
+
+#remove entityref in data
+string='xxx&nbsp;xxx&nbsp;xxx'
+print(spiderman.removeEntityref(string))
+```
     
 ###runServer.py
 
 a simple http server
 
 	$python3 runServer 8080
+	
+###wtf
+
+```py
+from wtf import file,template
+f=file.read('wtf.html')
+file.write('wtf.html',f)
+
+html=template.render({'key','value'},f)
+```
