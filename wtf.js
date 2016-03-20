@@ -10,6 +10,7 @@
 var wtf = (function () {
     function wtf() {
     }
+    //ajax
     wtf.get = function (url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -38,8 +39,62 @@ var wtf = (function () {
         xhr.open('POST', url, true);
         xhr.send(data);
     };
+
     wtf.htmlEscape = function (html) {
         return html.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     };
+    
+    //load
+    wtf.loadScript=function(src,callback){
+        var scriptNode = document.createElement("script");
+        scriptNode.type = "text/javascript";
+        try {
+            if(src) {
+                scriptNode.src = src;
+                scriptNode.onloadDone = false;
+                scriptNode.onload = function () {
+                    scriptNode.onloadDone = true;
+                    if(callback){
+                        callback();
+                    }
+                 };
+                 scriptNode.onreadystatechange = function () {
+                    if((scriptNode.readyState == 'loaded' || scriptNode.readyState == 'complete') && !scriptNode.onloadDone) {
+                        scriptNode.onloadDone = true;
+                    }
+                 };
+                 document.getElementsByTagName('head')[0].appendChild(scriptNode);
+            }
+        } catch(e) {
+            console.log('appendScript error: ',e);
+        }
+    };
+    wtf.loadStyle=function(url){
+        try {
+            document.createStyleSheet(url)
+        } catch(e) {
+            var cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.type = 'text/css';
+            cssLink.href = url;
+            document.getElementsByTagName('head')[0].appendChild(cssLink);
+        }
+    };
+    //selector
+    wtf.$$=function(selector){
+        return document.querySelectorAll(selector);
+    };
+    wtf.$=function(selector){
+        return document.querySelector(selector);
+    };
+    wtf.$id=function(id){
+        return document.getElementById(id);
+    };
+    wtf.$cls=function(cls){
+        return document.getElementsByClassName(cls);
+    };
+    wtf.$tag=function(tag){
+        return document.getElementsByTagName(tag);
+    }
     return wtf;
 })();

@@ -10,7 +10,7 @@
 
 
 - [**init.less**](#initless) reset css
-- [**wtf.ts**](#wtfts) some useful web tool functions
+- [**wtf.js**](#wtfts) some useful web tool functions
 - [**spiderman.py**](#spidermanpy) html sprider
 - [**runServer.py**](#runserverpy) a simple server
 - [**wtf**](#wtf) a python lib with some useful tool function
@@ -24,13 +24,10 @@ reset css
 
 	$lessc init.less > static/style.css
 
-###wtf.ts
+###wtf.js
 
 some useful web tool functions
 
-use webtoolfunction.js:
-
-	$tsc webtoolfunction.ts
 	
 ####wtf.get(url,callback)
 
@@ -51,6 +48,34 @@ wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
 	console.log(data);
 })
 ```
+
+####wtf.$(selector)
+
+selector
+
+```js
+wtf.$('#id')
+wtf.$$('.cls')
+wtf.$id('id')
+wtf.$cls('cls')
+wtf.$tag('tag')
+```
+
+####wtf.loadScript(src,callback)
+
+load script file
+
+```js
+wtf.loadScript('../static/lib/wtf.js',function(){
+	console.log('wtf load ok');
+})
+```
+
+####wtf.loadStyle(url)
+
+####wtf.htmlEscape(html)
+
+
 
 ###spiderman.py
 
