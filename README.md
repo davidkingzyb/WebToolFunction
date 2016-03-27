@@ -49,6 +49,16 @@ wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
 })
 ```
 
+####wtf.ajax(url,data,callback)
+
+ajax function
+
+```js
+wtf.ajax('http://www.test.com',{q:'xx'},function(data){
+    console.log(data);
+})
+```
+
 ####wtf.$(selector)
 
 selector
@@ -75,6 +85,13 @@ wtf.loadScript('../static/lib/wtf.js',function(){
 
 ####wtf.htmlEscape(html)
 
+####wtf.wrapTag(tag,value,attr)
+
+wrap html tag
+
+```js
+wtf.wrapTag('a','go','href="http://test.com"');
+```
 
 
 ###spiderman.py
