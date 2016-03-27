@@ -12,6 +12,7 @@
 
 from HTMLParser import HTMLParser
 import urllib2
+import urllib
 import re
 
 def removeTags(html):
@@ -35,6 +36,11 @@ def spider(url,cookie='',ua='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) App
     resp=urllib2.urlopen(req)
     html=resp.read()
     return html
+
+def post(url,data):
+    resp=urllib2.urlopen(url=url,data=urllib.urlencode(data))
+    r=resp.read()
+    return r
 
 class getAttr(HTMLParser):
     arr=[]
@@ -130,11 +136,16 @@ def testremoveEntityref():
     string='xxx&nbsp;xxx&nbsp;xxx'
     print(removeEntityref(string))
 
+def testpost():
+    r=post('http://127.0.0.1:5000/io',{'tty':'help'})
+    print(r)
+
 if __name__ == '__main__':
     # testgetAttr()
     # testspider()
     # testsubString()
-    textremoveTags()
-    testremoveEntityref()
+    # textremoveTags()
+    # testremoveEntityref()
+    testpost()
 
 

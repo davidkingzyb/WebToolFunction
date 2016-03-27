@@ -113,6 +113,10 @@ print(arr)
 #spider
 print(spiderman.spider('http://davidkingzyb.github.io'))
 
+#post
+
+print(spiderman.post('http://dkzhome.sinaapp.com/io',{'tty':'help'}))
+
 #get data
 string='<aaa>xxxxx<bbb>'
 print(spiderman.subString(string,'<aaa>','<bbb>'))
