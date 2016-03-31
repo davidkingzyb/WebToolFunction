@@ -1,0 +1,57 @@
+<!DOSTYPE html>
+<html>
+<head>
+<title>test</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="static/style.css">
+<script type="text/javascript" src="wtf.js"></script>
+<script type="text/javascript" src="bd.js"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>WebToolFunction</h1>
+        <h2>wtf.js</h2>
+        <ul>
+            <li>wtf.get(url,callback)</li>
+            <li>wtf.post(url,data,callback)</li>
+            <li>wtf.ajax(url,data,callback)</li>
+            <li>wtf.$(selector)</li>
+            <li>wtf.loadStyle(url)</li>
+            <li>wtf.htmlEscape(html)</li>
+            <li>wtf.wrapTag(tag,value,attr)</li>
+        </ul>
+        <h2>bd.js</h2>
+        <ul>
+            <li>bd.define(id,obj,vm)</li>
+            <li>bd.repeat(o,vm)</li>
+        </ul>
+    </div>
+    <div id="mid">
+        <div>a:{{o.a}}/b:{{o.b||'no'}}</div>
+        <div>c:{{o.c||'no'}}</div>
+        <div>output:{{o.output}}</div>
+        <ul>
+            {{bd.repeat(o.arr,'<li>#el#</li>')}}
+        </ul>
+    </div>
+    <input type="text" id="in">
+    <script type="text/javascript">
+var model=bd.define('mid',{
+    a:'av',
+    b:'bv',
+    output:'',
+    arr:[1,2,3,4,5],
+})
+
+model.b='bvv';
+model.a='avv';
+
+wtf.$('#in').onkeydown=function(e){
+    if(e.keyCode===13){
+        model.output=wtf.$('#in').value;
+    }
+}
+
+    </script>
+</body>
+</html>
