@@ -16,18 +16,28 @@ import urllib
 import re
 
 def removeTags(html):
-    txt=re.sub('<.+?>','',html)
-    return txt
+    return re.sub('<.+?>','',html)
 
 def removeEntityref(html):
-    txt=re.sub('&.+?;','',html)
-    return txt
-    
+    return re.sub('&.+?;','',html)
+
 
 def subString(string,start,end):
     s=string.find(start)+len(start)
     e=string.find(end,s)
     return string[s:e]
+
+def subAllString(string,start,end):
+    r=[]
+    s=string.find(start)+len(start)
+    e=string.find(end,s)
+    r.append(string[s:e])
+    s=string.find(start,e)
+    while s>0:
+        e=string.find(end,s)
+        r.append(string[s+len(start):e])
+        s=string.find(start,e)
+    return r 
 
 def spider(url,cookie='',ua='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36'):
     req=urllib2.Request(url)
@@ -125,16 +135,9 @@ def testspider():
     print(spider('http://davidkingzyb.github.io'))
 
 def testsubString():
-    string='<aaa>xxxxx<bbb>'
+    string='<aaa>xxxxfx<bbb><aaa>fieaje<bbb>'
     print(subString(string,'<aaa>','<bbb>'))
-
-def textremoveTags():
-    string='<a>xxx<aa>xxxx<aa><aa>xxx</aa>'
-    print(removeTags(string))
-
-def testremoveEntityref():
-    string='xxx&nbsp;xxx&nbsp;xxx'
-    print(removeEntityref(string))
+    print(subAllString(string,'<aaa>','<bbb>'))
 
 def testpost():
     r=post('http://127.0.0.1:5000/io',{'tty':'help'})
@@ -143,9 +146,7 @@ def testpost():
 if __name__ == '__main__':
     # testgetAttr()
     # testspider()
-    # testsubString()
-    # textremoveTags()
-    # testremoveEntityref()
-    testpost()
+    testsubString()
+    # testpost()
 
 

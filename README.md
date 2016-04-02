@@ -168,6 +168,14 @@ print(spiderman.removeTags(string))
 #remove entityref in data
 string='xxx&nbsp;xxx&nbsp;xxx'
 print(spiderman.removeEntityref(string))
+
+#subString(string,start,end)
+string='<start>sub<end>'
+print(spiderman.subString(string,'<start>','<end>'))
+
+#subAllString(string,start,end)
+string='<start>sub1<end><start>sub2<end>'
+print(spiderman.subAllString(string,'<start>','<end>')[1])
 ```
     
 ###runServer.py
