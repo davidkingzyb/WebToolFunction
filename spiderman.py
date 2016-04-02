@@ -53,13 +53,13 @@ def post(url,data):
     return r
 
 class getAttr(HTMLParser):
-    arr=[]
-    targetAttr=''
-
-
-    selectTagName=''
-    selectAttrName=''
-    selectAttrValue=''
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.arr=[]
+        self.targetAttr=''
+        self.selectAttrName=''
+        self.selectTagName=''
+        self.selectAttrValue=''
 
     def getResult(self):
         return self.arr
@@ -126,7 +126,7 @@ def testgetAttr():
     parser=getAttr()
     parser.setTargetAttr('href')
     parser.setTagSelector('a')
-    parser.selectAttrSelector('id','dkz')
+    parser.setAttrSelector('id','dkz')
     parser.feed(html)
     arr=parser.getResult()
     print(arr)
@@ -144,9 +144,9 @@ def testpost():
     print(r)
 
 if __name__ == '__main__':
-    # testgetAttr()
+    testgetAttr()
     # testspider()
-    testsubString()
+    #testsubString()
     # testpost()
 
 
