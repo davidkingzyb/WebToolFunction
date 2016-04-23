@@ -17,6 +17,8 @@ var wtf = (function () {
             if (xhr.readyState == 4) {
                 var resp = xhr.responseText;
                 callback(resp);
+            }else if(xhr.status==0){
+                //console.log('ok')
             }
             else {
                 console.log('fail' + xhr.status);
@@ -31,6 +33,8 @@ var wtf = (function () {
             if (xhr.readyState == 4) {
                 var resp = xhr.responseText;
                 callback(resp);
+            }else if(xhr.status==0){
+                //console.log('ok')
             }
             else {
                 console.log('fail' + xhr.status);
@@ -46,6 +50,8 @@ var wtf = (function () {
             if (xhr.readyState == 4) {
                 var resp = xhr.responseText;
                 callback(resp);
+            }else if(xhr.status==0){
+                //console.log('ok')
             }
             else {
                 console.log('fail' + xhr.status);
