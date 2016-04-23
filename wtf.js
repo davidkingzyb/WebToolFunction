@@ -17,11 +17,11 @@ var wtf = (function () {
             if (xhr.readyState == 4) {
                 var resp = xhr.responseText;
                 callback(resp);
-            }else if(xhr.status==0){
+            }else if(xhr.status==0||xhr.status==200){
                 //console.log('ok')
             }
             else {
-                console.log('fail' + xhr.status);
+                console.log('fail ' + xhr.status);
             }
         };
         xhr.open('GET', url, true);
@@ -33,11 +33,11 @@ var wtf = (function () {
             if (xhr.readyState == 4) {
                 var resp = xhr.responseText;
                 callback(resp);
-            }else if(xhr.status==0){
+            }else if(xhr.status==0||xhr.status==200){
                 //console.log('ok')
             }
             else {
-                console.log('fail' + xhr.status);
+                console.log('fail ' + xhr.status);
             }
         };
         xhr.open('POST', url, true);
@@ -50,11 +50,11 @@ var wtf = (function () {
             if (xhr.readyState == 4) {
                 var resp = xhr.responseText;
                 callback(resp);
-            }else if(xhr.status==0){
+            }else if(xhr.status==0||xhr.status==200){
                 //console.log('ok')
             }
             else {
-                console.log('fail' + xhr.status);
+                console.log('fail ' + xhr.status);
             }
         };
         xhr.open('POST', url, true);
