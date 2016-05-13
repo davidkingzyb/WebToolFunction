@@ -13,7 +13,8 @@
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**spiderman.py**](#spidermanpy) html sprider
 - [**runServer.py**](#runserverpy) a simple server
-- [**wtf**](#wtf) a python lib with some useful tool function
+
+~~- [**wtf**](#wtf) a python lib with some useful tool function~~
 
 ~~- [**bd.js**](#bdjs) a simple MVVM framework use Object.observe~~
 
@@ -141,12 +142,3 @@ a simple http server
 
 	$python3 runServer 8080
 	
-###wtf
-
-```py
-from wtf import file,template
-f=file.read('wtf.html')
-file.write('wtf.html',f)
-
-html=template.render({'key','value'},f)
-```
