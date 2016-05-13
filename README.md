@@ -14,7 +14,7 @@
 - [**spiderman.py**](#spidermanpy) html sprider
 - [**runServer.py**](#runserverpy) a simple server
 - [**wtf**](#wtf) a python lib with some useful tool function
-- [**bd.js**](#bdjs) a simple MVVM framework use Object.observe
+~~- [**bd.js**](#bdjs) a simple MVVM framework use Object.observe~~
 
 
 ##API
@@ -29,8 +29,14 @@ reset css
 
 some useful web tool functions
 
+#####wtf.reqstr(obj)
+
+```js
+var qstr=wtf.reqstr({'q':'v','qq':'vv'}) //'q=v&qq=vv'
+```
+
 	
-#####wtf.get(url,callback)
+#####wtf.get(url,callback,onerror)
 
 ajax GET function
 
@@ -40,23 +46,13 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 })
 ```
 	
-#####wtf.post(url,data,callback)
+#####wtf.post(url,data,callback,onerror)
 
 ajax Post function
 
 ```js
 wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
 	console.log(data);
-})
-```
-
-#####wtf.ajax(url,data,callback)
-
-ajax function
-
-```js
-wtf.ajax('http://www.test.com',{q:'xx'},function(data){
-    console.log(data);
 })
 ```
 
@@ -94,45 +90,11 @@ wrap html tag
 wtf.wrapTag('a','go','href="http://test.com"');
 ```
 
-###bd.js
+~~###bd.js~~
 
-a simple MVVM framework use Object.observe
+~~#####bd.define(id,obj,vm)~~
 
-quick example
-
-```
-<div id="mid">
-    <div>a:{{o.a}}/b:{{o.b||'no'}}</div>
-    <div>c:{{o.c||'no'}}</div>
-    <div>output:{{o.output}}</div>
-    <ul>
-        {{bd.repeat(o.arr,'<li>#el#</li>')}}
-    </ul>
-</div>
-<input type="text" id="in">
-
-<script type="text/javascript">
-	var model=bd.define('mid',{
-	    a:'av',
-	    b:'bv',
-	    output:'',
-	    arr:[1,2,3,4,5],
-	})
-	
-	model.b='bvv';
-	model.a='avv';
-	
-	wtf.$('#in').onkeydown=function(e){
-	    if(e.keyCode===13){
-	        model.output=wtf.$('#in').value;
-	    }
-	}
-</script>
-```
-
-#####bd.define(id,obj,vm)
-
-#####bd.repeat(o,vm)
+~~#####bd.repeat(o,vm)~~
 
 ###spiderman.py
 

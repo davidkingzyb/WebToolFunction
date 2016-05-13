@@ -26,31 +26,50 @@
             <li>bd.repeat(o,vm)</li>
         </ul>
     </div>
-    <div id="mid">
+<script type="text/javascript">
+    
+    wtf.get('http://127.0.0.1:5000/404',function(d){
+        console.log(d)
+    },function(e){
+
+        console.log(e)
+        console.log('geteerrrrooor')
+    })
+    console.log(wtf.reqstr({'a':1}))
+
+    wtf.post('http://127.0.0.1:5000/test',wtf.reqstr({'postvalue':'afew'}),function(d){
+        console.log(d);
+    },function(e){
+        console.log(e)
+    })
+
+</script>
+
+<!--     <div id="mid">
         <div>a:{{o.a}}/b:{{o.b||'no'}}</div>
         <div>c:{{o.c||'no'}}</div>
         <div>output:{{o.output}}</div>
         <ul>
             {{bd.repeat(o.arr,'<li>#el#</li>')}}
         </ul>
-    </div>
-    <input type="text" id="in">
+    </div> -->
+<!--     <input type="text" id="in"> -->
     <script type="text/javascript">
-var model=bd.define('mid',{
-    a:'av',
-    b:'bv',
-    output:'',
-    arr:[1,2,3,4,5],
-})
+// var model=bd.define('mid',{
+//     a:'av',
+//     b:'bv',
+//     output:'',
+//     arr:[1,2,3,4,5],
+// })
 
-model.b='bvv';
-model.a='avv';
+// model.b='bvv';
+// model.a='avv';
 
-wtf.$('#in').onkeydown=function(e){
-    if(e.keyCode===13){
-        model.output=wtf.$('#in').value;
-    }
-}
+// wtf.$('#in').onkeydown=function(e){
+//     if(e.keyCode===13){
+//         model.output=wtf.$('#in').value;
+//     }
+// }
 
     </script>
 </body>

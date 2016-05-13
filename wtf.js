@@ -11,54 +11,65 @@ var wtf = (function () {
     function wtf() {
     }
     //ajax
-    wtf.get = function (url, callback) {
+    
+    wtf.get = function (url, callback ,onerror) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
+            if (xhr.readyState == 4 && xhr.status==200) {
                 var resp = xhr.responseText;
                 callback(resp);
-            }else if(xhr.status==0||xhr.status==200){
-                //console.log('ok')
             }
             else {
-                console.log('fail ' + xhr.status);
+                if(xhr.status!=0&&xhr.status!=200){
+                    var e=xhr.responseText;
+                    console.log('wtf get fail ' + xhr.status);
+                    onerror&&onerror(e);
+                }
             }
         };
+        xhr.timeout=20000;
+        xhr.ontimeout=function(e){
+            var e=xhr.responseText;
+            console.log('wtf get timeout')
+            onerror&&onerror(e);
+        }
         xhr.open('GET', url, true);
         xhr.send();
     };
-    wtf.post = function (url, data, callback) {
+
+    wtf.post = function (url, data, callback,onerror) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
+            if (xhr.readyState == 4 && xhr.status==200) {
                 var resp = xhr.responseText;
                 callback(resp);
-            }else if(xhr.status==0||xhr.status==200){
-                //console.log('ok')
             }
             else {
-                console.log('fail ' + xhr.status);
+                if(xhr.status!=0&&xhr.status!=200){
+                    var e=xhr.responseText;
+                    console.log('wtf post fail ' + xhr.status);
+                    onerror&&onerror(e);
+                }
             }
         };
+        xhr.timeout=20000;
+        xhr.ontimeout=function(e){
+            var e=xhr.responseText;
+            console.log('wtf post timeout')
+            onerror&&onerror(e);
+        }
         xhr.open('POST', url, true);
         xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xhr.send(data);
     };
-    wtf.ajax=function(url,data,callback){
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                var resp = xhr.responseText;
-                callback(resp);
-            }else if(xhr.status==0||xhr.status==200){
-                //console.log('ok')
-            }
-            else {
-                console.log('fail ' + xhr.status);
-            }
-        };
-        xhr.open('POST', url, true);
-        xhr.send(JSON.stringify(data));
+
+    wtf.reqstr=function(o){
+        var reqstr='';
+        for(var i in o){
+            reqstr+=i+'='+o[i]+'&'
+        }
+        reqstr=reqstr.slice(0,-1);
+        return reqstr;
     };
 
     //html 
