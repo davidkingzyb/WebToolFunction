@@ -14,6 +14,7 @@
 - [**spiderman.py**](#spidermanpy) html sprider
 - [**runServer.py**](#runserverpy) a simple server
 - [**wtf**](#wtf) a python lib with some useful tool function
+
 ~~- [**bd.js**](#bdjs) a simple MVVM framework use Object.observe~~
 
 
@@ -89,12 +90,6 @@ wrap html tag
 ```js
 wtf.wrapTag('a','go','href="http://test.com"');
 ```
-
-~~###bd.js~~
-
-~~#####bd.define(id,obj,vm)~~
-
-~~#####bd.repeat(o,vm)~~
 
 ###spiderman.py
 
