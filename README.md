@@ -36,9 +36,8 @@ some useful web tool functions
 ```js
 var qstr=wtf.reqstr({'q':'v','qq':'vv'}) //'q=v&qq=vv'
 ```
-
 	
-#####wtf.get(url,callback,onerror)
+#####wtf.get(url,callback[,onerror)
 
 ajax GET function
 
@@ -48,7 +47,7 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 })
 ```
 	
-#####wtf.post(url,data,callback,onerror)
+#####wtf.post(url,data,callback[,onerror)
 
 ajax Post function
 
@@ -70,7 +69,24 @@ wtf.$cls('cls')
 wtf.$tag('tag')
 ```
 
-#####wtf.loadScript(src,callback)
+#####wtf.$urlquery(name[,url)
+
+#####wtf.$localStorage(name[,value)
+
+#####wtf.$sessionStorage(name[,value)
+
+#####wtf.$cookie(name[,value[,time)
+
+#####wtf.cookies
+
+- getItem(name)
+- setItem(name, value[, end[, path[, domain[, secure)
+- removeItem(name[, path[,domain)
+- hasItem(name)
+- keys()
+- clear()
+
+#####wtf.loadScript(src[,callback)
 
 load script file
 
