@@ -157,4 +157,8 @@ print(spiderman.subAllString(string,'<start>','<end>')[1])
 a simple http server
 
 	$python3 runServer 8080
+
+##Liscense
+
+**MIT**
 	
