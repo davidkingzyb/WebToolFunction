@@ -108,6 +108,8 @@ wrap html tag
 wtf.wrapTag('a','go','href="http://test.com"');
 ```
 
+#####wtf.alert(text[,hidetime)
+
 ###spiderman.py
 
 html spider use python2.x

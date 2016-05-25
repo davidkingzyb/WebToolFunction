@@ -1,4 +1,3 @@
-
 /*
 
 license:MIT
@@ -33,6 +32,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 2016/05/23 by DKZ https://davidkingzyb.github.io
 github: https://github.com/davidkingzyb/WebToolFunction
 */
+var wtfalerttimer;
 var wtf = (function() {
     function wtf() {}
     //ajax
@@ -102,8 +102,8 @@ var wtf = (function() {
     wtf.htmlEscape = function(html) {
         return html.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     };
-    wtf.$urlquery = function(name,url) {
-        var url=url||window.location.search;
+    wtf.$urlquery = function(name, url) {
+        var url = url || window.location.search;
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
@@ -138,7 +138,8 @@ var wtf = (function() {
         },
         setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
             if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
-                return false; }
+                return false;
+            }
             var sExpires = "";
             if (vEnd) {
                 switch (vEnd.constructor) {
@@ -158,7 +159,8 @@ var wtf = (function() {
         },
         removeItem: function(sKey, sPath, sDomain) {
             if (!sKey || !this.hasItem(sKey)) {
-                return false; }
+                return false;
+            }
             document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
             return true;
         },
@@ -170,19 +172,19 @@ var wtf = (function() {
             for (var nIdx = 0; nIdx < aKeys.length; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
             return aKeys;
         },
-        clear:function(){
-            var keys=wtf.cookies.keys();
-            for(var i in keys){
+        clear: function() {
+            var keys = wtf.cookies.keys();
+            for (var i in keys) {
                 wtf.cookies.removeItem(keys[i]);
             }
             return true;
         }
     };
-    wtf.$cookie = function(name,value,time) {
-        if(value){
-            wtf.cookies.setItem(name,value,time);
+    wtf.$cookie = function(name, value, time) {
+        if (value) {
+            wtf.cookies.setItem(name, value, time);
             return wtf.cookies.getItem(name);
-        }else{
+        } else {
             return wtf.cookies.getItem(name);
         }
     };
@@ -238,6 +240,24 @@ var wtf = (function() {
     };
     wtf.$tag = function(tag) {
         return document.getElementsByTagName(tag);
+    };
+    wtf.alert=function(text, hidetime) {
+        var hidetime = hidetime || 3000;
+        if (wtfalerttimer) {
+            clearTimeout(wtfalerttimer);
+        }
+        var showalerthtml = '<div style="position:fixed;left:50%;top:45%;font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;">' + text + '</div>';
+        if (wtf.$id('showalert')) {
+            wtf.$id('showalert').innerHTML = showalerthtml;
+        } else {
+            var showalert = document.createElement('div');
+            showalert.id = 'showalert';
+            document.body.appendChild(showalert);
+            wtf.$id('showalert').innerHTML = showalerthtml;
+        }
+        wtfalerttimer = setTimeout(function() {
+            wtf.$id('showalert').innerHTML = '';
+        }, hidetime);
     }
     return wtf;
 })();
