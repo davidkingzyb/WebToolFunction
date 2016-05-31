@@ -241,23 +241,6 @@ var wtf = (function() {
     wtf.$tag = function(tag) {
         return document.getElementsByTagName(tag);
     };
-    wtf.alert=function(text, hidetime) {
-        var hidetime = hidetime || 3000;
-        if (wtfalerttimer) {
-            clearTimeout(wtfalerttimer);
-        }
-        var showalerthtml = '<div style="position:fixed;left:50%;top:45%;font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;">' + text + '</div>';
-        if (wtf.$id('showalert')) {
-            wtf.$id('showalert').innerHTML = showalerthtml;
-        } else {
-            var showalert = document.createElement('div');
-            showalert.id = 'showalert';
-            document.body.appendChild(showalert);
-            wtf.$id('showalert').innerHTML = showalerthtml;
-        }
-        wtfalerttimer = setTimeout(function() {
-            wtf.$id('showalert').innerHTML = '';
-        }, hidetime);
-    }
+
     return wtf;
 })();
