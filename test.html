@@ -6,6 +6,7 @@
 
 <script type="text/javascript" src="wtf.js"></script>
 
+<script type="text/javascript" src="terminal.js"></script>
 </head>
 <body>
     <div id="container">
@@ -14,7 +15,6 @@
         <ul>
             <li>wtf.get(url,callback)</li>
             <li>wtf.post(url,data,callback)</li>
-            <li>wtf.ajax(url,data,callback)</li>
             <li>wtf.$(selector)</li>
             <li>wtf.loadStyle(url)</li>
             <li>wtf.htmlEscape(html)</li>
@@ -25,10 +25,15 @@
             <li>bd.define(id,obj,vm)</li>
             <li>bd.repeat(o,vm)</li>
         </ul>
+        <h3>terminal.js</h3>
+        <ul>
+            <li><a href="javascript:terminal.show()">terminal.show()</a></li>
+            <li><a href="javascript:terminal.log('a','b','c')">terminal.log(msg)</a></li>
+        </ul>
     </div>
 <script type="text/javascript">
-wtf.alert('aa',1000);
-wtf.alert('ab')
+
+    terminal.init();
     // wtf.get('http://127.0.0.1:5000/404',function(d){
     //     console.log(d)
     // },function(e){
@@ -46,32 +51,7 @@ wtf.alert('ab')
 
 </script>
 
-<!--     <div id="mid">
-        <div>a:{{o.a}}/b:{{o.b||'no'}}</div>
-        <div>c:{{o.c||'no'}}</div>
-        <div>output:{{o.output}}</div>
-        <ul>
-            {{bd.repeat(o.arr,'<li>#el#</li>')}}
-        </ul>
-    </div> -->
-<!--     <input type="text" id="in"> -->
-    <script type="text/javascript">
-// var model=bd.define('mid',{
-//     a:'av',
-//     b:'bv',
-//     output:'',
-//     arr:[1,2,3,4,5],
-// })
 
-// model.b='bvv';
-// model.a='avv';
 
-// wtf.$('#in').onkeydown=function(e){
-//     if(e.keyCode===13){
-//         model.output=wtf.$('#in').value;
-//     }
-// }
-
-    </script>
 </body>
 </html>

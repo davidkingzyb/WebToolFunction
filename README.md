@@ -11,6 +11,7 @@
 
 - [**init.less**](#initless) reset css
 - [**wtf.js**](#wtfjs) some useful web tool functions
+- [**terminal.js**](#terminaljs) console in your website
 - [**spiderman.py**](#spidermanpy) html sprider
 - [**runServer.py**](#runserverpy) a simple server
 
@@ -108,7 +109,19 @@ wrap html tag
 wtf.wrapTag('a','go','href="http://test.com"');
 ```
 
-#####wtf.alert(text[,hidetime)
+###terminal.js
+
+console in your website
+
+a command user interface for debug web application
+
+#####terminal.init()
+
+#####terminal.show()
+
+#####terminal.log()
+
+#####terminal.alert()
 
 ###spiderman.py
 
