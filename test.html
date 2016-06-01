@@ -34,6 +34,20 @@
 <script type="text/javascript">
 
     terminal.init();
+
+    console.log(wtf.typeOf({}))
+    console.log(wtf.typeOf([]))
+    console.log(wtf.typeOf(function(){}))
+    console.log(wtf.typeOf(null));
+
+    wtf.sessionStorage('obj',{a:1});
+    console.log(wtf.sessionStorage('obj'));
+    wtf.sessionStorage('obj',null);
+    console.log(wtf.sessionStorage('obj'));
+    wtf.sessionStorage('str','aaa');
+
+    console.log(wtf.sessionStorage('str'));
+
     // wtf.get('http://127.0.0.1:5000/404',function(d){
     //     console.log(d)
     // },function(e){

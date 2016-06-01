@@ -102,30 +102,56 @@ var wtf = (function() {
     wtf.htmlEscape = function(html) {
         return html.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     };
-    wtf.$urlquery = function(name, url) {
+    wtf.urlquery = function(name, url) {
         var url = url || window.location.search;
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
-    wtf.$localStorage = function(name, value) {
-        if (value) {
+    wtf.localStorage = function(name, value) {
+        if (wtf.typeOf(value)==='string') {
             localStorage.setItem(name, value);
             return localStorage.getItem(name);
-        } else {
+        }else if(wtf.typeOf(value)==='object'){
+            localStorage.setItem(name,JSON.stringify(value));
+            return localStorage.getItem(name);
+        }else if(wtf.typeOf(value)==='null'){
+            localStorage.removeItem(name);
+            return null;
+        }//todo array type
+        else {
             if (localStorage.getItem(name)) {
-                return localStorage.getItem(name);
+                var r;
+                try{
+                    r=JSON.parse(localStorage.getItem(name));
+                }catch(e){
+                    r=localStorage.getItem(name);
+                }
+                return r;
             } else {
                 return null;
             }
         }
     };
-    wtf.$sessionStorage = function(name, value) {
-        if (value) {
+    wtf.sessionStorage = function(name, value) {
+        if (wtf.typeOf(value)==='string') {
             sessionStorage.setItem(name, value);
             return sessionStorage.getItem(name);
-        } else {
+        }else if(wtf.typeOf(value)==='object'){
+            sessionStorage.setItem(name,JSON.stringify(value));
+            return sessionStorage.getItem(name);
+        }else if(wtf.typeOf(value)==='null'){
+            sessionStorage.removeItem(name);
+            return null;
+        }//todo array type
+        else {
             if (sessionStorage.getItem(name)) {
-                return sessionStorage.getItem(name);
+                var r;
+                try{
+                    r=JSON.parse(sessionStorage.getItem(name));
+                }catch(e){
+                    r=sessionStorage.getItem(name);
+                }
+                return r;
             } else {
                 return null;
             }
@@ -241,6 +267,21 @@ var wtf = (function() {
     wtf.$tag = function(tag) {
         return document.getElementsByTagName(tag);
     };
+
+    //js
+    var _wtfclasstype = {} ;
+    "Boolean Number String Function Array Date RegExp Object Error".split(" ").forEach(function(e,i){
+        _wtfclasstype[ "[object " + e + "]" ] = e.toLowerCase();
+    }) ;
+    wtf.typeOf=function(obj){
+        if ( obj == null ){
+            return String( obj );
+        }
+        return typeof obj === "object" || typeof obj === "function" ?
+            _wtfclasstype[ _wtfclasstype.toString.call(obj) ] || "object" :
+            typeof obj;
+    }
+
 
     return wtf;
 })();

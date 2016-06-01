@@ -70,11 +70,15 @@ wtf.$cls('cls')
 wtf.$tag('tag')
 ```
 
-#####wtf.$urlquery(name[,url)
+#####wtf.urlquery(name[,url)
 
-#####wtf.$localStorage(name[,value)
+```js
+var q=wtf.urlquery(q,'?q=1&qq=2');
+```
 
-#####wtf.$sessionStorage(name[,value)
+#####wtf.localStorage(name[,value)
+
+#####wtf.sessionStorage(name[,value)
 
 #####wtf.$cookie(name[,value[,time)
 
@@ -105,9 +109,7 @@ wtf.loadScript('../static/lib/wtf.js',function(){
 
 wrap html tag
 
-```js
-wtf.wrapTag('a','go','href="http://test.com"');
-```
+#####wtf.typeOf(obj)
 
 ###terminal.js
 
@@ -117,11 +119,15 @@ a command user interface for debug web application
 
 #####terminal.init()
 
+use terminal
+
 #####terminal.show()
 
-#####terminal.log()
+or press `F9`
 
-#####terminal.alert()
+#####terminal.log(msg1[,msg2...)
+
+#####terminal.alert(msg,timeout)
 
 ###spiderman.py
 

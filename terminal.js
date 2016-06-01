@@ -51,7 +51,6 @@ var terminal=(function(){
     margin-bottom: -275px;
     margin-left: -250px;
     background-color: rgba(10,10,10,0.3);
-    overflow:auto;
     z-index:999;
 }
 #terminal>pre{
@@ -60,6 +59,12 @@ bottom:10px;
 margin-left: 10px;
 margin-right:10px;
     
+}
+#terminal_show{
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height: 174px;
+    width: 490px;
 }
 #terminal pre a{
     color:white;
@@ -76,29 +81,74 @@ margin-right:10px;
     font-family: 'Lucida Console', Monaco, monospace;
     outline:none;
 }
+#terminalbg{
+    position: relative;
+    height: 26px;
+    width: 100%;
+    top: 174px;
+    background-color: rgba(0,0,0,0.5);
+}
 </style>
     `
-    var template='<div id="terminal" style="display:none;"><pre><pre id="terminal_show"></pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+    var template='<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show">WebToolFunction by DKZ</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
     function terminal(){
 
     }
+
+    var class2type = {} ;
+    "Boolean Number String Function Array Date RegExp Object Error".split(" ").forEach(function(e,i){
+        class2type[ "[object " + e + "]" ] = e.toLowerCase();
+    }) ;
+    function _typeof(obj){
+        if ( obj == null ){
+            return String( obj );
+        }
+        return typeof obj === "object" || typeof obj === "function" ?
+            class2type[ class2type.toString.call(obj) ] || "object" :
+            typeof obj;
+    }
+    function wtf_localStorage(name, value) {
+        if (value) {
+            localStorage.setItem(name, value);
+            return localStorage.getItem(name);
+        } else {
+            if (localStorage.getItem(name)) {
+                return localStorage.getItem(name);
+            } else {
+                return null;
+            }
+        }
+    };
+
     terminal.init=function(){
+        window.onkeydown=function(e){
+            if(e.keyCode===120||e.which===120){
+                terminal.show();
+            }
+        }
         var terminalcon=document.createElement('div');
         terminalcon.id='terminalcon';
         terminalcon.innerHTML=csstemplate+template;
         document.body.appendChild(terminalcon);
-        var TTYARR=[];
+        var terminal_TTYARR=JSON.parse(wtf_localStorage('terminal_TTYARR'));
+        var TTYARR=terminal_TTYARR?terminal_TTYARR.ttyarr:[];
         var terminal_input=document.getElementById('terminal_input');
-        var that=this;
         terminal_input.onkeydown=function(e){
             if(e.keyCode===13||e.which===13){
                 var tty=terminal_input.value;
                 TTYARR.push(tty);
+                terminal_TTYARR={'ttyarr':TTYARR};
+                wtf_localStorage('terminal_TTYARR',JSON.stringify(terminal_TTYARR));
                 terminal_input.value='';
-                document.getElementById('terminal_show').innerHTML+='\n-'+tty+'\n';
-                that.log(terminal.eval(tty));
-
+                var terminal_show=document.getElementById('terminal_show');
+                terminal_show.innerHTML+='\n-'+tty+'\n';
+                try{
+                    terminal.log(terminal.eval(tty));
+                }catch(e){
+                    terminal.log(e);
+                }
                 
+                terminal_show.scrollTop=terminal_show.scrollHeight;
             }
             if(e.keyCode===38||e.which===38){
                 if(TTYARR.length>=1){
@@ -151,9 +201,14 @@ margin-right:10px;
     terminal.log=function(){
         var output='';
         for(var i=0;i<arguments.length;i++){
-            output+=arguments[i]+' ';
+            if(_typeof(arguments[i])==='object'){
+                output+=JSON.stringify(arguments[i],0,4)+'\n';
+            }
+            else{
+                output+=arguments[i]+' ';
+            }
         }
-        console.log('terminal: '+output);
+        //console.log('terminal: '+output);
         var show=document.getElementById('terminal_show');
         show.innerHTML+=output+'\n';
     }
