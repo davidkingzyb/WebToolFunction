@@ -33,7 +33,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 2016/05/31 by DKZ https://davidkingzyb.github.io
 github: https://github.com/davidkingzyb/WebToolFunction
 */
-
+var terminal_alerttimer;
 var terminal=(function(){
     var csstemplate=`
 <style>
@@ -90,7 +90,7 @@ margin-right:10px;
 }
 </style>
     `
-    var template='<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show">WebToolFunction by DKZ</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+    var template='<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show">WebToolFunction by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
     function terminal(){
 
     }
@@ -172,8 +172,8 @@ margin-right:10px;
     }
     terminal.alert=function(text, hidetime) {
         var hidetime = hidetime || 3000;
-        if (wtfalerttimer) {
-            clearTimeout(wtfalerttimer);
+        if (terminal_alerttimer) {
+            clearTimeout(terminal_alerttimer);
         }
         var showalerthtml = '<div style="position:fixed;left:50%;top:45%;font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;">' + text + '</div>';
         if (document.getElementById('showalert')) {
@@ -184,7 +184,7 @@ margin-right:10px;
             showalert.innerHTML = showalerthtml;
             document.body.appendChild(showalert);
         }
-        wtfalerttimer = setTimeout(function() {
+        terminal_alerttimer = setTimeout(function() {
             document.getElementById('showalert').innerHTML = '';
         }, hidetime);
     }

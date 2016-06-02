@@ -1,67 +1,154 @@
 <!DOSTYPE html>
 <html>
 <head>
-<title>test</title>
+<title>WebToolFunction test</title>
 <meta charset="utf-8">
 
 <script type="text/javascript" src="wtf.js"></script>
-
 <script type="text/javascript" src="terminal.js"></script>
 </head>
 <body>
     <div id="container">
         <h1>WebToolFunction</h1>
-        <h2>wtf.js</h2>
+        press F9 open terminal
+        <h2 class="js">wtf.js</h2>
         <ul>
-            <li>wtf.get(url,callback)</li>
-            <li>wtf.post(url,data,callback)</li>
-            <li>wtf.$(selector)</li>
-            <li>wtf.loadStyle(url)</li>
-            <li>wtf.htmlEscape(html)</li>
-            <li>wtf.wrapTag(tag,value,attr)</li>
+            <li><a href="javascript:testreqstr()">wtf.reqstr(obj)</a></li>
+            <li><a href="javascript:testget()">wtf.get(url,callback)</a></li>
+            <li><a href="javascript:testpost()">wtf.post(url,data,callback)</a></li>
+            <li><a href="javascript:test$()">wtf.$(selector)</a></li>
+            <li><a href="javascript:testurlquery()">wtf.urlquery(name)</a></li>
+            <li><a href="javascript:testlocalStorage()">wtf.localStorage(name,value)</a></li>
+            <li><a href="javascript:testsessionStorage()">wtf.sessionStorage(name,value)</a></li>
+            <li><a href="javascript:test$cookie()">wtf.$cookie(name,value,time)</a></li>
+            <li><a href="javascript:testcookies()">wtf.cookies</a></li>
+            <li><a href="javascript:testloadScript()">wtf.loadScript(src,callback)</a></li>
+            <li><a href="javascript:testloadStyle()">wtf.loadStyle(url)</a></li>
+            <li><a href="javascript:testhtmlEscape()">wtf.htmlEscape(html)</a></li>
+            <li><a href="javascript:testwrapTag()">wtf.wrapTag(tag,value,attr)</a></li>
+            <li><a href="javascript:testtypeOf()">wtf.typeOf(obj)</a></li>
         </ul>
-        <h2>bd.js</h2>
+
+        <h2 class="js">terminal.js</h2>
         <ul>
-            <li>bd.define(id,obj,vm)</li>
-            <li>bd.repeat(o,vm)</li>
-        </ul>
-        <h3>terminal.js</h3>
-        <ul>
+            <li>terminal.init()</li>
             <li><a href="javascript:terminal.show()">terminal.show()</a></li>
-            <li><a href="javascript:terminal.log('a','b','c')">terminal.log(msg)</a></li>
+            <li><a href="javascript:terminal.log('a',1,{key:'value',arr:[1,2,3]})">terminal.log(msg)</a></li>
+            <li><a href="javascript:terminal.alert('terminal show')">terminal.alert(msg)</a></li>
         </ul>
     </div>
 <script type="text/javascript">
 
     terminal.init();
 
-    console.log(wtf.typeOf({}))
-    console.log(wtf.typeOf([]))
-    console.log(wtf.typeOf(function(){}))
-    console.log(wtf.typeOf(null));
+    function testreqstr(){
+        var r=wtf.reqstr({q:1,qq:2});
+        terminal.log('testreqstr:',r);
+    }
 
-    wtf.sessionStorage('obj',{a:1});
-    console.log(wtf.sessionStorage('obj'));
-    wtf.sessionStorage('obj',null);
-    console.log(wtf.sessionStorage('obj'));
-    wtf.sessionStorage('str','aaa');
+    function testget(){
+        wtf.get('http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}',function(d){
+            terminal.log(d);
+        },function(e){
+            terminal.log(e);
+        })
+    }
 
-    console.log(wtf.sessionStorage('str'));
+    function testpost(){
+        wtf.post('http://dkzhome.sinaapp.com/clio','func=dotree&obj={"a":1,"b":[1,2]}',function(d){
+            terminal.log(d);
 
-    // wtf.get('http://127.0.0.1:5000/404',function(d){
-    //     console.log(d)
-    // },function(e){
+        },function(e){
+            terminal.log(e);
+        })
+    }
 
-    //     console.log(e)
-    //     console.log('geteerrrrooor')
-    // })
-    // console.log(wtf.reqstr({'a':1}))
+    function test$(){
+        terminal.alert('open console')
+        console.log(wtf.$('#container'))
+        console.log(wtf.$$('.js'))
+        console.log(wtf.$id('container'))
+        console.log(wtf.$cls('js'))
+        console.log(wtf.$tag('h2'))
+    }
 
-    // wtf.post('http://127.0.0.1:5000/test',wtf.reqstr({'postvalue':'afew'}),function(d){
-    //     console.log(d);
-    // },function(e){
-    //     console.log(e)
-    // })
+    function testurlquery(){
+        var q=wtf.urlquery('obj','http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}')
+        terminal.log(q)
+    }
+
+    function teststorage(storage){
+        terminal.alert('open console')
+        terminal.log(wtf[storage]('storagenull',null))
+        terminal.log(wtf[storage]('storagestr','str'))
+        terminal.log(wtf[storage]('storagearr',[1,2,3]))
+        terminal.log(wtf[storage]('storageobj',{a:1,b:2}))
+        console.log(wtf[storage]('storagenull'))
+        console.log(wtf[storage]('storagestr'))
+        console.log(wtf[storage]('storagearr'))
+        console.log(wtf[storage]('storageobj'))
+    }
+
+    function testlocalStorage(){
+        teststorage('localStorage');
+    }
+
+    function testsessionStorage(){
+        teststorage('sessionStorage');
+    }
+
+    function test$cookie(){
+        terminal.log(wtf.$cookie('cookie','test',10000)) 
+        terminal.log(wtf.$cookie('cookie'))
+    }
+
+    function testcookies(){
+        terminal.log(wtf.cookies.getItem('cookie'))
+        terminal.log(wtf.cookies.setItem('cookies','testcookies'))
+        terminal.log(wtf.cookies.removeItem('cookie'))
+        terminal.log(wtf.cookies.keys())
+        terminal.log(wtf.cookies.clear())
+        terminal.log(wtf.cookies.hasItem('cookie'))
+    }
+
+    function testloadScript(){
+        wtf.loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js',function(){
+            terminal.alert('load jQuery')
+            terminal.log($('.js'));
+        })
+    }
+
+    function testloadStyle(){
+        wtf.loadStyle('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',function(){
+            terminal.alert('load bootstrap')
+        })
+    }
+
+    function testhtmlEscape(){
+        terminal.log(wtf.htmlEscape('<img src="null.jpg" onerror="alert(a)">'))
+    }
+
+    function testwrapTag(){
+        terminal.log(wtf.wrapTag('a','a tag','href="#"'))
+    }
+
+    function testtypeOf(){
+        terminal.log(wtf.typeOf('string'))
+        terminal.log(wtf.typeOf([]))
+        terminal.log(wtf.typeOf({}))
+        terminal.log(wtf.typeOf(0))
+        terminal.log(wtf.typeOf(function(){}))
+        terminal.log(wtf.typeOf(null))
+        terminal.log(wtf.typeOf(true))
+        terminal.log(wtf.typeOf(new Date()))
+        terminal.log(wtf.typeOf(/a/g))
+        try{
+            var a=aa;
+        }catch(e){
+            terminal.log(wtf.typeOf(e))
+        }
+    }
+
 
 </script>
 

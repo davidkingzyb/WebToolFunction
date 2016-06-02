@@ -32,7 +32,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 2016/05/23 by DKZ https://davidkingzyb.github.io
 github: https://github.com/davidkingzyb/WebToolFunction
 */
-var wtfalerttimer;
 var wtf = (function() {
     function wtf() {}
     //ajax
@@ -42,19 +41,22 @@ var wtf = (function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var resp = xhr.responseText;
+                try{
+                    resp=JSON.parse(resp);
+                }catch(e){}
                 callback(resp);
             } else {
                 if (xhr.status != 0 && xhr.status != 200) {
                     var e = xhr.responseText;
-                    console.log('wtf get fail ' + xhr.status);
+                    //console.log('wtf get fail ' + xhr.status);
                     onerror && onerror(e);
                 }
             }
         };
         xhr.timeout = 20000;
-        xhr.ontimeout = function(e) {
-            var e = xhr.responseText;
-            console.log('wtf get timeout')
+        xhr.ontimeout = function() {
+            var e = 'wtf get timeout';
+            //console.log('wtf get timeout')
             onerror && onerror(e);
         }
         xhr.open('GET', url, true);
@@ -66,23 +68,29 @@ var wtf = (function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var resp = xhr.responseText;
+                try{
+                    resp=JSON.parse(resp);
+                }catch(e){}
                 callback(resp);
             } else {
                 if (xhr.status != 0 && xhr.status != 200) {
                     var e = xhr.responseText;
-                    console.log('wtf post fail ' + xhr.status);
+                    //console.log('wtf post fail ' + xhr.status);
                     onerror && onerror(e);
                 }
             }
         };
         xhr.timeout = 20000;
-        xhr.ontimeout = function(e) {
-            var e = xhr.responseText;
-            console.log('wtf post timeout')
+        xhr.ontimeout = function() {
+            var e = 'wtf post timeout';
+            //console.log('wtf post timeout')
             onerror && onerror(e);
         }
         xhr.open('POST', url, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //xhr.setRequestHeader("Content-type", "application/json");
+        //xhr.setRequestHeader("Content-type", "multipart/form-data");
+
         xhr.send(data);
     };
 
@@ -111,13 +119,13 @@ var wtf = (function() {
         if (wtf.typeOf(value)==='string') {
             localStorage.setItem(name, value);
             return localStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='object'){
+        }else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
             localStorage.setItem(name,JSON.stringify(value));
             return localStorage.getItem(name);
         }else if(wtf.typeOf(value)==='null'){
             localStorage.removeItem(name);
             return null;
-        }//todo array type
+        }
         else {
             if (localStorage.getItem(name)) {
                 var r;
@@ -136,13 +144,13 @@ var wtf = (function() {
         if (wtf.typeOf(value)==='string') {
             sessionStorage.setItem(name, value);
             return sessionStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='object'){
+        }else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
             sessionStorage.setItem(name,JSON.stringify(value));
             return sessionStorage.getItem(name);
         }else if(wtf.typeOf(value)==='null'){
             sessionStorage.removeItem(name);
             return null;
-        }//todo array type
+        }
         else {
             if (sessionStorage.getItem(name)) {
                 var r;
