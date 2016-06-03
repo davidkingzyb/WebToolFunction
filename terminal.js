@@ -107,6 +107,34 @@ right:50%;
     left:50%
 
 }
+
+.terminal_confirm{
+font-size:20px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_confirmcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%
+
+}
+
+#terminal_confirmcon a{
+    color:white;
+}
+
+#terminal_confirmcon a:hover{
+    color:#555;
+}
 </style>
     `
     var cssmobiletemplate = `
@@ -222,6 +250,14 @@ right:50%;
             if (e.keyCode === 120 || e.which === 120) {
                 terminal.show();
             }
+            if(terminal._confirmcallback){
+                if(e.keyCode===89||e.which===89){
+                    terminal.doConfirm(true);
+                }
+                if(e.keyCode===78||e.keyCode===88||e.which===78||e.which===88){
+                    terminal.doConfirm(false);
+                }
+            }
         }
         var terminalcon = document.createElement('div');
         terminalcon.id = 'terminalcon';
@@ -285,6 +321,46 @@ right:50%;
             document.getElementById('terminal_alertcon').innerHTML = '';
         }, hidetime);
     }
+
+    function _xprint(char,times){
+        var r=''
+        for(var i=0;i<times;i++){
+            r+=char;
+        }
+        return r;
+    }
+    terminal.confirm = function(text, callback) {
+        var maxlen=0;
+        text=text.split('\n');
+        text.forEach(function(el,i,arr){
+            if(el.length>maxlen){
+                maxlen=el.length;
+            }
+        })
+        var html=' _'+_xprint('_',maxlen)+'<a href="javascript:terminal.doConfirm(false)">x</a>_ \n';
+        text.forEach(function(el,i,arr){
+            html+='  '+el+'\n';
+        })
+        html+='  '+_xprint(' ',maxlen-5)+'(<a href="javascript:terminal.doConfirm(true)">y</a>/<a href="javascript:terminal.doConfirm(false)">n</a>)\n'
+        var terminal_confirmconhtml = '<pre class="terminal_confirm">' + html + '</pre>';
+        if (document.getElementById('terminal_confirmcon')) {
+            document.getElementById('terminal_confirmcon').innerHTML = terminal_confirmconhtml;
+        } else {
+            var terminal_confirmcon = document.createElement('div');
+            terminal_confirmcon.id = 'terminal_confirmcon';
+            terminal_confirmcon.innerHTML = terminal_confirmconhtml;
+            document.body.appendChild(terminal_confirmcon);
+        }
+        terminal._confirmcallback=callback;
+    }
+
+    terminal._confirmcallback=null;
+    terminal.doConfirm=function(e){
+        document.getElementById('terminal_confirmcon').innerHTML='';
+        terminal._confirmcallback(e);
+        terminal._confirmcallback=null;
+    }
+
     terminal.show = function() {
         var terminal = document.getElementById('terminal');
         if (terminal.style.display == 'none') {

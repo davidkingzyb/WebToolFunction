@@ -35,6 +35,7 @@
             <li><a href="javascript:terminal.show()">terminal.show()</a></li>
             <li><a href="javascript:terminal.log('a',1,{key:'value',arr:[1,2,3]})">terminal.log(msg)</a></li>
             <li><a href="javascript:terminal.alert('terminal show')">terminal.alert(msg)</a></li>
+            <li><a href="javascript:testterminalconfirm()">terminal.confirm(msg,callback)</a></li>
         </ul>
     </div>
 <script type="text/javascript">
@@ -147,6 +148,16 @@
         }catch(e){
             terminal.log(wtf.typeOf(e))
         }
+    }
+
+    function testterminalconfirm(){
+        terminal.confirm('test confirm\n confirm text is dkz ?',function(e){
+            if(e){
+                terminal.alert('confirm true');
+            }else{
+                terminal.alert('confirm false');
+            }
+        })
     }
 
 
