@@ -36,6 +36,7 @@
             <li><a href="javascript:terminal.log('a',1,{key:'value',arr:[1,2,3]})">terminal.log(msg)</a></li>
             <li><a href="javascript:terminal.alert('terminal show')">terminal.alert(msg)</a></li>
             <li><a href="javascript:testterminalconfirm()">terminal.confirm(msg,callback)</a></li>
+            <li><a href="javascript:testterminalprompt()">terminal.confirm(msg,callback)</a></li>
         </ul>
     </div>
 <script type="text/javascript">
@@ -160,6 +161,16 @@
         })
     }
 
+    function testterminalprompt(){
+        terminal.prompt('test prompt\n please input:',function(e){
+            if(e){
+                terminal.alert(e);
+            }
+            else{
+                terminal.alert('prompt cancel');
+            }
+        })
+    }
 
 </script>
 

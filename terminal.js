@@ -32,7 +32,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 2016/05/31 by DKZ https://davidkingzyb.github.io
 github: https://github.com/davidkingzyb/WebToolFunction
 */
-var terminal_alerttimer;
 var terminal = (function() {
     var csstemplate = `
 <style>
@@ -134,6 +133,44 @@ right:50%;
 
 #terminal_confirmcon a:hover{
     color:#555;
+}
+
+.terminal_prompt{
+font-size:20px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_promptcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%
+
+}
+
+#terminal_promptcon a{
+    color:white;
+}
+
+#terminal_promptcon a:hover{
+    color:#555;
+}
+#terminal_promptinput{
+    margin:0px;
+    padding:0px;
+    background-color: rgba(10,10,10,0.01);
+    border:0px;
+    color:white;
+    font-family: 'Lucida Console', Monaco, monospace;
+    outline:none;
+    font-size:20px;
 }
 </style>
     `
@@ -258,6 +295,14 @@ right:50%;
                     terminal.doConfirm(false);
                 }
             }
+            if(terminal._promptcallback){
+                var terminal_promptinput=document.getElementById('terminal_promptinput');
+                terminal_promptinput.onkeydown=function(e){
+                    if(e.keyCode===13||e.which===13){
+                        terminal.doprompt(true);
+                    }
+                }
+            }
         }
         var terminalcon = document.createElement('div');
         terminalcon.id = 'terminalcon';
@@ -303,10 +348,11 @@ right:50%;
         var output = eval.call(window, tty);
         return output;
     }
+    terminal._alerttimer=null;
     terminal.alert = function(text, hidetime) {
         var hidetime = hidetime || 3000;
-        if (terminal_alerttimer) {
-            clearTimeout(terminal_alerttimer);
+        if (terminal._alerttimer) {
+            clearTimeout(terminal._alerttimer);
         }
         var terminal_alertconhtml = '<pre class="terminal_alert">' + text + '</pre>';
         if (document.getElementById('terminal_alertcon')) {
@@ -317,7 +363,7 @@ right:50%;
             terminal_alertcon.innerHTML = terminal_alertconhtml;
             document.body.appendChild(terminal_alertcon);
         }
-        terminal_alerttimer = setTimeout(function() {
+        terminal._alerttimer = setTimeout(function() {
             document.getElementById('terminal_alertcon').innerHTML = '';
         }, hidetime);
     }
@@ -360,7 +406,48 @@ right:50%;
         terminal._confirmcallback(e);
         terminal._confirmcallback=null;
     }
+    terminal.prompt = function(text, callback) {
+        var maxlen=0;
+        text=text.split('\n');
+        text.forEach(function(el,i,arr){
+            if(el.length>maxlen){
+                maxlen=el.length;
+            }
+        })
+        var html=' _'+_xprint('_',maxlen)+'<a href="javascript:terminal.doprompt(false)">x</a>_ \n';
+        text.forEach(function(el,i,arr){
+            html+='  '+el+'\n';
+        })
+        html+='  -<input id="terminal_promptinput" size="'+(maxlen-2)+'" placeholder="'+_xprint('_',maxlen-2)+'">\n'
+        html+='  '+_xprint(' ',maxlen-5)+'(<a href="javascript:terminal.doprompt(true)">y</a>/<a href="javascript:terminal.doprompt(false)">n</a>)\n'
+        var terminal_promptconhtml = '<pre class="terminal_prompt">' + html + '</pre>';
+        if (document.getElementById('terminal_promptcon')) {
+            document.getElementById('terminal_promptcon').innerHTML = terminal_promptconhtml;
+        } else {
+            var terminal_promptcon = document.createElement('div');
+            terminal_promptcon.id = 'terminal_promptcon';
+            terminal_promptcon.innerHTML = terminal_promptconhtml;
+            document.body.appendChild(terminal_promptcon);
+        }
+        document.getElementById('terminal_promptinput').focus();
+        terminal._promptcallback=callback;
+    }
 
+    terminal._promptcallback=null;
+    terminal.doprompt=function(e){
+        var terminal_promptinput=document.getElementById('terminal_promptinput');
+        var val=terminal_promptinput.value;
+        if(e){
+            document.getElementById('terminal_promptcon').innerHTML='';
+            terminal._promptcallback(val);
+            terminal._promptcallback=null;
+        }else{
+            document.getElementById('terminal_promptcon').innerHTML='';
+            terminal._promptcallback(null);
+            terminal._promptcallback=null;
+        }
+        
+    }
     terminal.show = function() {
         var terminal = document.getElementById('terminal');
         if (terminal.style.display == 'none') {
