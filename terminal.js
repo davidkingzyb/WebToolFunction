@@ -247,6 +247,71 @@ right:50%;
     left:50%
 
 }
+.terminal_confirm{
+font-size:40px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_confirmcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%
+
+}
+
+#terminal_confirmcon a{
+    color:white;
+}
+
+#terminal_confirmcon a:hover{
+    color:#555;
+}
+
+.terminal_prompt{
+font-size:40px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_promptcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%
+
+}
+
+#terminal_promptcon a{
+    color:white;
+}
+
+#terminal_promptcon a:hover{
+    color:#555;
+}
+#terminal_promptinput{
+    font-size:40px;
+    margin:0px;
+    padding:0px;
+    background-color: rgba(10,10,10,0.01);
+    border:0px;
+    color:white;
+    font-family: 'Lucida Console', Monaco, monospace;
+    outline:none;
+}
 </style>
     `
     var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show">WebToolFunction by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
