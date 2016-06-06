@@ -314,7 +314,7 @@ right:50%;
 }
 </style>
     `
-    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show">WebToolFunction by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
 
     function terminal() {
 
