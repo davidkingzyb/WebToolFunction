@@ -41,7 +41,7 @@ var terminal = (function() {
 #terminal{
     color:white;
     font-family: 'Lucida Console', Monaco, monospace;
-    position:absolute;
+    position:fixed;
     width:500px;
     height:200px;
     left:50%;
@@ -182,7 +182,7 @@ right:50%;
 #terminal{
     color:white;
     font-family: 'Lucida Console', Monaco, monospace;
-    position:absolute;
+    position:fixed;
     width:100%;
     height:500px;
     left:0px;
