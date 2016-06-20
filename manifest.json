@@ -9,20 +9,12 @@
         "48": "images/icon48.png",
         "128": "images/icon128.png"
     },
-    "browser_action": {
-        "default_icon": {
-            "19": "images/icon19.png",
-            "38": "images/icon38.png"
-        },
-        "default_title": "WebToolFunction"
-        // "default_popup": "chrome.html"
+    "app": {
+        "background": {
+            "scripts": ["app.js"]
+        }
     },
-    "permissions": [
-        "tts", "tabs", "*://*/*", 
-        "cookies" 
-    ],
-    "content_scripts": [{
-        "matches": ["*://*/*"], 
-        "js": ["wtf.js","terminal.js","chrome.js"]
-    }]
+    "sandbox": {
+        "pages": ["app.html"]
+    }
 }
