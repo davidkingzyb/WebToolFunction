@@ -4,10 +4,27 @@
         <meta charset="utf-8">
 
 <script type="text/javascript" src="wtf.js"></script>
-<script type="text/javascript" src="terminal.js"></script>
+
 <script type="text/javascript">
-    terminal.init();
+
+    window.onload=function(){
+        terminal.init();
+        terminal.show();
+    }
 </script>
+<script type="text/javascript" src="terminal.js"></script>
+<style type="text/css">
+    #terminal{
+        margin-bottom: -150px !important;
+        height:300px !important;
+    }
+    #terminalbg{
+        top:274px !important;
+    }
+    #terminal_show{
+        height:274px !important;
+    }
+</style>
     </head>
     <body>
         

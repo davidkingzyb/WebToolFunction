@@ -35,19 +35,19 @@ https://github.com/davidkingzyb/WebToolFunction
 */
 
 chrome.app.runtime.onLaunched.addListener(function() {
-    var main_window = chrome.app.window.get('app');
-    if(main_window){
-        main_window.show();
-    }
-    else{
+    // var main_window = chrome.app.window.get('app');
+    // if(main_window){
+    //     main_window.show();
+    // }
+    // else{
         chrome.app.window.create('app.html', {
             'id': 'app',
             'bounds': {
-                'width': 542,
-                'height': 360
+                'width': 500,
+                'height': 200,
             },
             'resizable': false,
-            'frame': 'none'
+            // 'frame': 'none'
         });
-    } 
+    // } 
 });

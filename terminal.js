@@ -373,15 +373,15 @@ right:50%;
         terminalcon.id = 'terminalcon';
         terminalcon.innerHTML = navigator.userAgent.toLowerCase().indexOf('mobile') < 0 ? csstemplate + template : cssmobiletemplate + template;
         document.body.appendChild(terminalcon);
-        var terminal_TTYARR = JSON.parse(wtf_localStorage('terminal_TTYARR'));
-        var TTYARR = terminal_TTYARR ? terminal_TTYARR.ttyarr : [];
+        // var terminal_TTYARR = JSON.parse(wtf_localStorage('terminal_TTYARR'));
+        var TTYARR =[];
         var terminal_input = document.getElementById('terminal_input');
         terminal_input.onkeydown = function(e) {
             if (e.keyCode === 13 || e.which === 13) {
                 var tty = terminal_input.value;
                 TTYARR.push(tty);
                 terminal_TTYARR = { 'ttyarr': TTYARR };
-                wtf_localStorage('terminal_TTYARR', JSON.stringify(terminal_TTYARR));
+                // wtf_localStorage('terminal_TTYARR', JSON.stringify(terminal_TTYARR));
                 terminal_input.value = '';
                 var terminal_show = document.getElementById('terminal_show');
                 terminal_show.innerHTML += '\n-' + tty + '\n';
