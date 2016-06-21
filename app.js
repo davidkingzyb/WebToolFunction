@@ -43,8 +43,8 @@ chrome.app.runtime.onLaunched.addListener(function() {
         chrome.app.window.create('app.html', {
             'id': 'app',
             'bounds': {
-                'width': 500,
-                'height': 200,
+                'width': 550,
+                'height': 350,
             },
             'resizable': false,
             // 'frame': 'none'
