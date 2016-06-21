@@ -125,6 +125,16 @@ a command user interface for debug web application
 
 use terminal
 
+#####terminal.showmodalbg()
+
+use modal dialoge
+
+#####terminal.ismodalbg
+
+always use modal dialoge
+
+default=false
+
 #####terminal.show()
 
 or press `F9`
