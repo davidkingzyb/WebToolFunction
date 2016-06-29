@@ -339,7 +339,9 @@ right:50%;
 }
 </style>
     `
-    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+
+    var nowdate=new Date().toDateString();
+    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ '+nowdate+'\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
 
     function terminal() {
 
@@ -373,6 +375,7 @@ right:50%;
     };
 
     terminal.init = function() {
+        
         window.onkeydown = function(e) {
             if (e.keyCode === 120 || e.which === 120) {
                 terminal.show();
@@ -437,6 +440,12 @@ right:50%;
         var terminal_modalbg = document.createElement('div');
         terminal_modalbg.innerHTML = '<div id="terminal_modalbg" style="display:none"></div>';
         document.body.appendChild(terminal_modalbg);
+
+        window.onunload=function(){
+            //save log
+            var log=wtf_localStorage('terminal_log')+document.getElementById('terminal_show').innerHTML;
+            wtf_localStorage('terminal_log',log);
+        }
     }
     terminal.eval = function(tty) {
         var output = eval.call(window, tty);
