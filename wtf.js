@@ -53,7 +53,7 @@ var wtf = (function() {
                 }
             }
         };
-        xhr.timeout = 20000;
+        xhr.timeout = 200000;
         xhr.ontimeout = function() {
             var e = 'wtf get timeout';
             //console.log('wtf get timeout')
@@ -80,7 +80,7 @@ var wtf = (function() {
                 }
             }
         };
-        xhr.timeout = 20000;
+        xhr.timeout = 200000;
         xhr.ontimeout = function() {
             var e = 'wtf post timeout';
             //console.log('wtf post timeout')
