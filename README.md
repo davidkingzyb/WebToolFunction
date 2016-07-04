@@ -52,7 +52,7 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 })
 ```
 	
-#####wtf.post(url,data,callback[,onerror)
+#####wtf.post(url,data,callback[,onerror[,content_type)
 
 ajax Post function
 

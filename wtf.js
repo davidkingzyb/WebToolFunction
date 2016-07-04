@@ -63,7 +63,7 @@ var wtf = (function() {
         xhr.send();
     };
 
-    wtf.post = function(url, data, callback, onerror) {
+    wtf.post = function(url, data, callback, onerror,content_type) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -87,10 +87,14 @@ var wtf = (function() {
             onerror && onerror(e);
         }
         xhr.open('POST', url, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        //xhr.setRequestHeader("Content-type", "application/json");
-        //xhr.setRequestHeader("Content-type", "multipart/form-data");
-
+        if(content_type==='json'){
+            xhr.setRequestHeader("Content-type", "application/json");
+        }else if(content_type==='formdata'){
+            // dont set header
+            // xhr.setRequestHeader("Content-type", "multipart/form-data");
+        }else{
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        }
         xhr.send(data);
     };
 

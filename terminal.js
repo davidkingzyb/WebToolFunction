@@ -458,6 +458,7 @@ right:50%;
             clearTimeout(terminal._alerttimer);
         }
         var terminal_alertconhtml = '<pre class="terminal_alert">' + text + '</pre>';
+        this.log('***alert***\n'+text)
         if (document.getElementById('terminal_alertcon')) {
             document.getElementById('terminal_alertcon').innerHTML = terminal_alertconhtml;
         } else {
