@@ -33,6 +33,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 github: https://github.com/davidkingzyb/WebToolFunction
 */
 var terminal = (function() {
+    terminal.ismodalbg = false;
+    terminal.debug=false;
+
     var csstemplate = `
 <style>
 #terminal_modalbg{
@@ -576,7 +579,7 @@ right:50%;
         }
 
     }
-    terminal.ismodalbg = false;
+    
     terminal.showmodalbg = function() {
         var modalbg = document.getElementById('terminal_modalbg');
         if (modalbg.style.display == 'none') {
@@ -614,6 +617,9 @@ right:50%;
         //console.log('terminal: '+output);
         var show = document.getElementById('terminal_show');
         show.innerHTML += output + '\n';
+        if(this.debug){
+            console.log(output);
+        }
     }
     return terminal;
 })()
