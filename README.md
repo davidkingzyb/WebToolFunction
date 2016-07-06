@@ -42,7 +42,7 @@ some useful web tool functions
 var qstr=wtf.reqstr({'q':'v','qq':'vv'}) //'q=v&qq=vv'
 ```
 	
-#####wtf.get(url,callback[,onerror)
+#####wtf.get(url,callback(d)[,onerror(xhr))
 
 ajax GET function
 
@@ -52,7 +52,7 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 })
 ```
 	
-#####wtf.post(url,data,callback[,onerror[,content_type)
+#####wtf.post(url,data,callback(d)[,onerror(xhr)[,content_type)
 
 ajax Post function
 
