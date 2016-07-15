@@ -298,6 +298,7 @@ var wtf = (function() {
             typeof obj;
     }
 
+    wtf.ua=navigator.userAgent.toLowerCase();
 
     return wtf;
 })();
