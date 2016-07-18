@@ -35,7 +35,7 @@
             <li><a href="javascript:terminal.showmodalbg()">terminal.showmodalbg()</a></li>
             <li><a href="javascript:terminal.show()">terminal.show()</a></li>
             <li><a href="javascript:terminal.log('a',1,{key:'value',arr:[1,2,3]})">terminal.log(msg)</a></li>
-            <li><a href="javascript:terminal.alert('terminal show')">terminal.alert(msg)</a></li>
+            <li><a id="alerter" href="javascript:terminal.alert('terminal show')">terminal.alert(msg)</a></li>
             <li><a href="javascript:testterminalconfirm()">terminal.confirm(msg,callback)</a></li>
             <li><a href="javascript:testterminalprompt()">terminal.prompt(msg,callback)</a></li>
         </ul>
@@ -71,7 +71,7 @@
     function test$(){
         terminal.alert('open console')
         console.log(wtf.$('#container'))
-        console.log(wtf.$$('.js'))
+        console.log(wtf.$$('.js')[0])
         console.log(wtf.$id('container'))
         console.log(wtf.$cls('js'))
         console.log(wtf.$tag('h2'))

@@ -33,6 +33,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 github: https://github.com/davidkingzyb/WebToolFunction
 */
 var terminal = (function() {
+    terminal.ismodalbg = false;
+    terminal.debug=false;
+
     var csstemplate = `
 <style>
 #terminal_modalbg{
@@ -339,7 +342,9 @@ right:50%;
 }
 </style>
     `
-    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+
+    var nowdate=new Date().toDateString();
+    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ '+nowdate+'\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
 
     function terminal() {
 
@@ -373,6 +378,7 @@ right:50%;
     };
 
     terminal.init = function() {
+        
         window.onkeydown = function(e) {
             if (e.keyCode === 120 || e.which === 120) {
                 terminal.show();
@@ -437,6 +443,12 @@ right:50%;
         var terminal_modalbg = document.createElement('div');
         terminal_modalbg.innerHTML = '<div id="terminal_modalbg" style="display:none"></div>';
         document.body.appendChild(terminal_modalbg);
+
+        window.onunload=function(){
+            //save log
+            var log=wtf_localStorage('terminal_log')+document.getElementById('terminal_show').innerHTML;
+            wtf_localStorage('terminal_log',log);
+        }
     }
     terminal.eval = function(tty) {
         var output = eval.call(window, tty);
@@ -449,6 +461,7 @@ right:50%;
             clearTimeout(terminal._alerttimer);
         }
         var terminal_alertconhtml = '<pre class="terminal_alert">' + text + '</pre>';
+        this.log('***alert***\n'+text)
         if (document.getElementById('terminal_alertcon')) {
             document.getElementById('terminal_alertcon').innerHTML = terminal_alertconhtml;
         } else {
@@ -566,7 +579,7 @@ right:50%;
         }
 
     }
-    terminal.ismodalbg = false;
+    
     terminal.showmodalbg = function() {
         var modalbg = document.getElementById('terminal_modalbg');
         if (modalbg.style.display == 'none') {
@@ -604,6 +617,9 @@ right:50%;
         //console.log('terminal: '+output);
         var show = document.getElementById('terminal_show');
         show.innerHTML += output + '\n';
+        if(this.debug){
+            console.log(output);
+        }
     }
     return terminal;
 })()
