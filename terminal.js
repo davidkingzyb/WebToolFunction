@@ -33,8 +33,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 github: https://github.com/davidkingzyb/WebToolFunction
 */
 var terminal = (function() {
+    terminal.ismodalbg = false;
+    terminal.debug=false;
+
     var csstemplate = `
 <style>
+#terminal_modalbg{
+    position:fixed;
+    z-index:990;
+    width:100%;
+    height:100%;
+    background-color:rgba(10,10,10,0.1);
+    top:0px;
+    left:0px;
+}
 #terminal pre{
     margin:0;
 }
@@ -48,7 +60,7 @@ var terminal = (function() {
     bottom:50%;
     margin-bottom: -275px;
     margin-left: -250px;
-    background-color: rgba(10,10,10,0.3);
+    background-color: rgba(10,10,10,0.4);
     z-index:999;
 }
 #terminal>pre{
@@ -103,7 +115,8 @@ right:50%;
     float:left;
     clear:left;
     top:45%;
-    left:50%
+    left:50%;
+    z-index:1000;
 
 }
 
@@ -123,7 +136,8 @@ right:50%;
     float:left;
     clear:left;
     top:45%;
-    left:50%
+    left:50%;
+    z-index:1000;
 
 }
 
@@ -151,7 +165,8 @@ right:50%;
     float:left;
     clear:left;
     top:45%;
-    left:50%
+    left:50%;
+    z-index:1000;
 
 }
 
@@ -176,6 +191,16 @@ right:50%;
     `
     var cssmobiletemplate = `
 <style>
+#terminal_modalbg{
+    position:fixed;
+    z-index:990;
+    width:100%;
+    height:100%;
+    background-color:rgba(10,10,10,0.1);
+    top:0px;
+    left:0px;
+}
+
 #terminal pre{
     margin:0;
 }
@@ -244,7 +269,8 @@ right:50%;
     float:left;
     clear:left;
     top:45%;
-    left:50%
+    left:50%;
+    z-index:1000;
 
 }
 .terminal_confirm{
@@ -263,7 +289,8 @@ right:50%;
     float:left;
     clear:left;
     top:45%;
-    left:50%
+    left:50%;
+    z-index:1000;
 
 }
 
@@ -291,7 +318,8 @@ right:50%;
     float:left;
     clear:left;
     top:45%;
-    left:50%
+    left:50%;
+    z-index:1000;
 
 }
 
@@ -314,7 +342,9 @@ right:50%;
 }
 </style>
     `
-    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+
+    var nowdate=new Date().toDateString();
+    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ '+nowdate+'\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
 
     function terminal() {
 
@@ -348,22 +378,23 @@ right:50%;
     };
 
     terminal.init = function() {
+        
         window.onkeydown = function(e) {
             if (e.keyCode === 120 || e.which === 120) {
                 terminal.show();
             }
-            if(terminal._confirmcallback){
-                if(e.keyCode===89||e.which===89){
+            if (terminal._confirmcallback) {
+                if (e.keyCode === 89 || e.which === 89) {
                     terminal.doConfirm(true);
                 }
-                if(e.keyCode===78||e.keyCode===88||e.which===78||e.which===88){
+                if (e.keyCode === 78 || e.keyCode === 88 || e.which === 78 || e.which === 88) {
                     terminal.doConfirm(false);
                 }
             }
-            if(terminal._promptcallback){
-                var terminal_promptinput=document.getElementById('terminal_promptinput');
-                terminal_promptinput.onkeydown=function(e){
-                    if(e.keyCode===13||e.which===13){
+            if (terminal._promptcallback) {
+                var terminal_promptinput = document.getElementById('terminal_promptinput');
+                terminal_promptinput.onkeydown = function(e) {
+                    if (e.keyCode === 13 || e.which === 13) {
                         terminal.doprompt(true);
                     }
                 }
@@ -408,18 +439,29 @@ right:50%;
                 }
             }
         }
+
+        var terminal_modalbg = document.createElement('div');
+        terminal_modalbg.innerHTML = '<div id="terminal_modalbg" style="display:none"></div>';
+        document.body.appendChild(terminal_modalbg);
+
+        window.onunload=function(){
+            //save log
+            var log=wtf_localStorage('terminal_log')+document.getElementById('terminal_show').innerHTML;
+            wtf_localStorage('terminal_log',log);
+        }
     }
     terminal.eval = function(tty) {
         var output = eval.call(window, tty);
         return output;
     }
-    terminal._alerttimer=null;
+    terminal._alerttimer = null;
     terminal.alert = function(text, hidetime) {
         var hidetime = hidetime || 3000;
         if (terminal._alerttimer) {
             clearTimeout(terminal._alerttimer);
         }
         var terminal_alertconhtml = '<pre class="terminal_alert">' + text + '</pre>';
+        this.log('***alert***\n'+text)
         if (document.getElementById('terminal_alertcon')) {
             document.getElementById('terminal_alertcon').innerHTML = terminal_alertconhtml;
         } else {
@@ -428,31 +470,39 @@ right:50%;
             terminal_alertcon.innerHTML = terminal_alertconhtml;
             document.body.appendChild(terminal_alertcon);
         }
+        var modalbg = document.getElementById('terminal_modalbg');
+        if (this.ismodalbg && modalbg.style.display == 'none') {
+            this.showmodalbg();
+        }
         terminal._alerttimer = setTimeout(function() {
+            var modalbg = document.getElementById('terminal_modalbg');
+            if (terminal.ismodalbg && modalbg.style.display == 'block') {
+                terminal.showmodalbg();
+            }
             document.getElementById('terminal_alertcon').innerHTML = '';
         }, hidetime);
     }
 
-    function _xprint(char,times){
-        var r=''
-        for(var i=0;i<times;i++){
-            r+=char;
+    function _xprint(char, times) {
+        var r = ''
+        for (var i = 0; i < times; i++) {
+            r += char;
         }
         return r;
     }
     terminal.confirm = function(text, callback) {
-        var maxlen=0;
-        text=text.split('\n');
-        text.forEach(function(el,i,arr){
-            if(el.length>maxlen){
-                maxlen=el.length;
+        var maxlen = 0;
+        text = text.split('\n');
+        text.forEach(function(el, i, arr) {
+            if (el.length > maxlen) {
+                maxlen = el.length;
             }
         })
-        var html=' _'+_xprint('_',maxlen)+'<a href="javascript:terminal.doConfirm(false)">x</a>_ \n';
-        text.forEach(function(el,i,arr){
-            html+='  '+el+'\n';
+        var html = ' _' + _xprint('_', maxlen) + '<a href="javascript:terminal.doConfirm(false)">x</a>_ \n';
+        text.forEach(function(el, i, arr) {
+            html += '  ' + el + '\n';
         })
-        html+='  '+_xprint(' ',maxlen-5)+'(<a href="javascript:terminal.doConfirm(true)">y</a>/<a href="javascript:terminal.doConfirm(false)">n</a>)\n'
+        html += '  ' + _xprint(' ', maxlen - 5) + '(<a href="javascript:terminal.doConfirm(true)">y</a>/<a href="javascript:terminal.doConfirm(false)">n</a>)\n'
         var terminal_confirmconhtml = '<pre class="terminal_confirm">' + html + '</pre>';
         if (document.getElementById('terminal_confirmcon')) {
             document.getElementById('terminal_confirmcon').innerHTML = terminal_confirmconhtml;
@@ -462,29 +512,37 @@ right:50%;
             terminal_confirmcon.innerHTML = terminal_confirmconhtml;
             document.body.appendChild(terminal_confirmcon);
         }
-        terminal._confirmcallback=callback;
+        var modalbg = document.getElementById('terminal_modalbg');
+        if (this.ismodalbg && modalbg.style.display == 'none') {
+            this.showmodalbg();
+        }
+        terminal._confirmcallback = callback;
     }
 
-    terminal._confirmcallback=null;
-    terminal.doConfirm=function(e){
-        document.getElementById('terminal_confirmcon').innerHTML='';
+    terminal._confirmcallback = null;
+    terminal.doConfirm = function(e) {
+        var modalbg = document.getElementById('terminal_modalbg');
+        if (this.ismodalbg && modalbg.style.display == 'block') {
+            this.showmodalbg();
+        }
+        document.getElementById('terminal_confirmcon').innerHTML = '';
         terminal._confirmcallback(e);
-        terminal._confirmcallback=null;
+        terminal._confirmcallback = null;
     }
     terminal.prompt = function(text, callback) {
-        var maxlen=0;
-        text=text.split('\n');
-        text.forEach(function(el,i,arr){
-            if(el.length>maxlen){
-                maxlen=el.length;
+        var maxlen = 0;
+        text = text.split('\n');
+        text.forEach(function(el, i, arr) {
+            if (el.length > maxlen) {
+                maxlen = el.length;
             }
         })
-        var html=' _'+_xprint('_',maxlen)+'<a href="javascript:terminal.doprompt(false)">x</a>_ \n';
-        text.forEach(function(el,i,arr){
-            html+='  '+el+'\n';
+        var html = ' _' + _xprint('_', maxlen) + '<a href="javascript:terminal.doprompt(false)">x</a>_ \n';
+        text.forEach(function(el, i, arr) {
+            html += '  ' + el + '\n';
         })
-        html+='  -<input id="terminal_promptinput" size="'+(maxlen-2)+'" placeholder="'+_xprint('_',maxlen-2)+'">\n'
-        html+='  '+_xprint(' ',maxlen-5)+'(<a href="javascript:terminal.doprompt(true)">y</a>/<a href="javascript:terminal.doprompt(false)">n</a>)\n'
+        html += '  -<input id="terminal_promptinput" size="' + (maxlen - 2) + '" placeholder="' + _xprint('_', maxlen - 2) + '">\n'
+        html += '  ' + _xprint(' ', maxlen - 5) + '(<a href="javascript:terminal.doprompt(true)">y</a>/<a href="javascript:terminal.doprompt(false)">n</a>)\n'
         var terminal_promptconhtml = '<pre class="terminal_prompt">' + html + '</pre>';
         if (document.getElementById('terminal_promptcon')) {
             document.getElementById('terminal_promptcon').innerHTML = terminal_promptconhtml;
@@ -494,31 +552,55 @@ right:50%;
             terminal_promptcon.innerHTML = terminal_promptconhtml;
             document.body.appendChild(terminal_promptcon);
         }
+        var modalbg = document.getElementById('terminal_modalbg');
+        if (this.ismodalbg && modalbg.style.display == 'none') {
+            this.showmodalbg();
+        }
         document.getElementById('terminal_promptinput').focus();
-        terminal._promptcallback=callback;
+        terminal._promptcallback = callback;
     }
 
-    terminal._promptcallback=null;
-    terminal.doprompt=function(e){
-        var terminal_promptinput=document.getElementById('terminal_promptinput');
-        var val=terminal_promptinput.value;
-        if(e){
-            document.getElementById('terminal_promptcon').innerHTML='';
-            terminal._promptcallback(val);
-            terminal._promptcallback=null;
-        }else{
-            document.getElementById('terminal_promptcon').innerHTML='';
-            terminal._promptcallback(null);
-            terminal._promptcallback=null;
+    terminal._promptcallback = null;
+    terminal.doprompt = function(e) {
+        var terminal_promptinput = document.getElementById('terminal_promptinput');
+        var val = terminal_promptinput.value;
+        var modalbg = document.getElementById('terminal_modalbg');
+        if (this.ismodalbg && modalbg.style.display == 'block') {
+            this.showmodalbg();
         }
-        
+        if (e) {
+            document.getElementById('terminal_promptcon').innerHTML = '';
+            terminal._promptcallback(val);
+            terminal._promptcallback = null;
+        } else {
+            document.getElementById('terminal_promptcon').innerHTML = '';
+            terminal._promptcallback(null);
+            terminal._promptcallback = null;
+        }
+
+    }
+    
+    terminal.showmodalbg = function() {
+        var modalbg = document.getElementById('terminal_modalbg');
+        if (modalbg.style.display == 'none') {
+            modalbg.style.display = 'block';
+        } else {
+            modalbg.style.display = 'none';
+        }
     }
     terminal.show = function() {
         var terminal = document.getElementById('terminal');
+        var modalbg = document.getElementById('terminal_modalbg');
         if (terminal.style.display == 'none') {
+            if (this.ismodalbg && modalbg.style.display == 'none') {
+                this.showmodalbg();
+            }
             terminal.style.display = 'block';
             document.getElementById('terminal_input').focus();
         } else {
+            if (this.ismodalbg && modalbg.style.display == 'block') {
+                this.showmodalbg();
+            }
             terminal.style.display = 'none';
         }
     }
@@ -535,7 +617,11 @@ right:50%;
         //console.log('terminal: '+output);
         var show = document.getElementById('terminal_show');
         show.innerHTML += output + '\n';
+        if(this.debug){
+            console.log(output);
+        }
     }
     return terminal;
 })()
 
+var term = terminal;

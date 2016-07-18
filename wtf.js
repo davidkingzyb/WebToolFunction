@@ -47,23 +47,25 @@ var wtf = (function() {
                 callback(resp);
             } else {
                 if (xhr.status != 0 && xhr.status != 200) {
-                    var e = xhr.responseText;
-                    //console.log('wtf get fail ' + xhr.status);
-                    onerror && onerror(e);
+                    if(onerror){
+                        onerror(xhr);
+                        onerror=null;
+                    }
                 }
             }
         };
-        xhr.timeout = 20000;
+        xhr.timeout = 200000;
         xhr.ontimeout = function() {
-            var e = 'wtf get timeout';
-            //console.log('wtf get timeout')
-            onerror && onerror(e);
+            if(onerror){
+                onerror(xhr);
+                onerror=null;
+            }
         }
         xhr.open('GET', url, true);
         xhr.send();
     };
 
-    wtf.post = function(url, data, callback, onerror) {
+    wtf.post = function(url, data, callback, onerror,content_type) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -74,23 +76,29 @@ var wtf = (function() {
                 callback(resp);
             } else {
                 if (xhr.status != 0 && xhr.status != 200) {
-                    var e = xhr.responseText;
-                    //console.log('wtf post fail ' + xhr.status);
-                    onerror && onerror(e);
+                    if(onerror){
+                        onerror(xhr);
+                        onerror=null;
+                    }
                 }
             }
         };
-        xhr.timeout = 20000;
+        xhr.timeout = 200000;
         xhr.ontimeout = function() {
-            var e = 'wtf post timeout';
-            //console.log('wtf post timeout')
-            onerror && onerror(e);
+            if(onerror){
+                onerror(xhr);
+                onerror=null;
+            }
         }
         xhr.open('POST', url, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        //xhr.setRequestHeader("Content-type", "application/json");
-        //xhr.setRequestHeader("Content-type", "multipart/form-data");
-
+        if(content_type==='json'){
+            xhr.setRequestHeader("Content-type", "application/json");
+        }else if(content_type==='formdata'){
+            // dont set header
+            // xhr.setRequestHeader("Content-type", "multipart/form-data");
+        }else{
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        }
         xhr.send(data);
     };
 
@@ -290,6 +298,7 @@ var wtf = (function() {
             typeof obj;
     }
 
+    wtf.ua=navigator.userAgent.toLowerCase();
 
     return wtf;
 })();
