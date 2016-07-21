@@ -138,6 +138,39 @@ or press `F9`
 
 #####terminal.alert(msg,timeout)
 
+###playsound.js
+
+Sound player use HTML5 <audio>  
+
+#####playsound.path
+
+- string './'
+
+#####playsound.type
+
+- string '.mp3'
+
+#####playsound.audios
+
+- obj {}
+
+#####playsound.volume
+
+-number 0.5
+
+#####playsound.loadsound(name)
+
+#####playsound.play(name)
+
+#####playsound.pause(name)
+
+#####playsound.stop(name)
+
+#####playsound.onloop(name)
+
+#####playsound.offloop(name)
+
+#####playsound.loop(name,times)
 
 ##Liscense
 
