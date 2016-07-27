@@ -16,6 +16,7 @@ Web tool functions for front-end developer
 - [**init.less**](#initless) reset css
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**terminal.js**](#terminaljs) console in your website
+- [**playsound.js**](#playsoundjs) sound play use <audio>
 
 
 
@@ -156,7 +157,7 @@ Sound player use HTML5 <audio>
 
 #####playsound.volume
 
--number 0.5
+- number 0.5
 
 #####playsound.loadsound(name)
 
