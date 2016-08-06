@@ -9,6 +9,11 @@
 Web tool functions for front-end developer
 
 [Chrome Extension](https://github.com/davidkingzyb/WebToolFunction/tree/chrome)
+[Chrome App](https://github.com/davidkingzyb/WebToolFunction/tree/app)
+
+##Try
+
+[http://davidkingzyb.github.io/WebToolFunction](http://davidkingzyb.github.io/WebToolFunction)
 
 ##List
 
@@ -32,13 +37,13 @@ reset css
 
 some useful web tool functions
 
-#####wtf.reqstr(obj)
+####wtf.reqstr(obj)
 
 ```js
 var qstr=wtf.reqstr({'q':'v','qq':'vv'}) //'q=v&qq=vv'
 ```
 	
-#####wtf.get(url,callback(d)[,onerror(xhr))
+####wtf.get(url,callback(d)[,onerror(xhr))
 
 ajax GET function
 
@@ -48,7 +53,7 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 })
 ```
 	
-#####wtf.post(url,data,callback(d)[,onerror(xhr)[,content_type)
+####wtf.post(url,data,callback(d)[,onerror(xhr)[,content_type)
 
 ajax Post function
 
@@ -58,7 +63,7 @@ wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
 })
 ```
 
-#####wtf.$(selector)
+####wtf.$(selector)
 
 selector
 
@@ -70,19 +75,19 @@ wtf.$cls('cls')
 wtf.$tag('tag')
 ```
 
-#####wtf.urlquery(name[,url)
+####wtf.urlquery(name[,url)
 
 ```js
 var q=wtf.urlquery(q,'?q=1&qq=2');
 ```
 
-#####wtf.localStorage(name[,value)
+####wtf.localStorage(name[,value)
 
-#####wtf.sessionStorage(name[,value)
+####wtf.sessionStorage(name[,value)
 
-#####wtf.$cookie(name[,value[,time)
+####wtf.$cookie(name[,value[,time)
 
-#####wtf.cookies
+####wtf.cookies
 
 - getItem(name)
 - setItem(name, value[, end[, path[, domain[, secure)
@@ -91,7 +96,7 @@ var q=wtf.urlquery(q,'?q=1&qq=2');
 - keys()
 - clear()
 
-#####wtf.loadScript(src[,callback)
+####wtf.loadScript(src[,callback)
 
 load script file
 
@@ -101,15 +106,15 @@ wtf.loadScript('../static/lib/wtf.js',function(){
 })
 ```
 
-#####wtf.loadStyle(url)
+####wtf.loadStyle(url)
 
-#####wtf.htmlEscape(html)
+####wtf.htmlEscape(html)
 
-#####wtf.wrapTag(tag,value,attr)
+####wtf.wrapTag(tag,value,attr)
 
 wrap html tag
 
-#####wtf.typeOf(obj)
+####wtf.typeOf(obj)
 
 ###terminal.js
 
@@ -117,61 +122,83 @@ console in your website
 
 a command user interface for debug web application
 
-#####terminal.init()
+####terminal.debug
+
+use console too
+
+- default=false
+
+####terminal.catcherr
+
+catch gobal error (window.onerror)
+
+- not jump to execute
+
+- default=false
+
+####terminal.init()
 
 use terminal
 
-#####terminal.showmodalbg()
-
-use modal dialoge
-
-#####terminal.ismodalbg
+####terminal.ismodalbg
 
 always use modal dialoge
 
-default=false
+- default=false
 
-#####terminal.show()
+####terminal.showmodalbg()
+
+use modal dialoge
+
+####terminal.show()
 
 or press `F9`
 
-#####terminal.log(msg1[,msg2...)
+####terminal.log(msg1[,msg2...)
 
-#####terminal.alert(msg,timeout)
+####terminal.consoleLocalLog()
+
+console log all terminal log in localstorage
+
+####terminal.alert(msg,timeout)
+
+####terminal.confirm(msg,callback)
+
+####terminal.prompt(msg,callback)
 
 ###playsound.js
 
 Sound player use HTML5 <audio>  
 
-#####playsound.path
+####playsound.path
 
 - string './'
 
-#####playsound.type
+####playsound.type
 
 - string '.mp3'
 
-#####playsound.audios
+####playsound.audios
 
 - obj {}
 
-#####playsound.volume
+####playsound.volume
 
 - number 0.5
 
-#####playsound.loadsound(name)
+####playsound.loadsound(name)
 
-#####playsound.play(name)
+####playsound.play(name)
 
-#####playsound.pause(name)
+####playsound.pause(name)
 
-#####playsound.stop(name)
+####playsound.stop(name)
 
-#####playsound.onloop(name)
+####playsound.onloop(name)
 
-#####playsound.offloop(name)
+####playsound.offloop(name)
 
-#####playsound.loop(name,times)
+####playsound.loop(name,times)
 
 ##Liscense
 

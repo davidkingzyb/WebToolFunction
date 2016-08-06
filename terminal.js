@@ -34,7 +34,8 @@ github: https://github.com/davidkingzyb/WebToolFunction
 */
 var terminal = (function() {
     terminal.ismodalbg = false;
-    terminal.debug=false;
+    terminal.debug = false;
+    terminal.catcherr=false;
 
     var csstemplate = `
 <style>
@@ -343,8 +344,8 @@ right:50%;
 </style>
     `
 
-    var nowdate=new Date().toDateString();
-    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ '+nowdate+'\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
+    var nowdate = new Date().toDateString();
+    var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ ' + nowdate + '\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
 
     function terminal() {
 
@@ -364,6 +365,29 @@ right:50%;
             typeof obj;
     }
 
+    function _doError(errMsg, scriptURI, lineNumber, columnNumber, errorObj) {
+        // setTimeout(function() {
+            var rst = {
+                "msg": errMsg,
+                "uri": scriptURI,
+                "line": lineNumber,
+                "col": columnNumber,
+                "err": errorObj
+            };
+            terminal.log('****** window catch error ******');
+            for(var x in rst){
+                terminal.log(x,':',rst[x]);
+            }
+            if(terminal.debug){
+                window.open("http://stackoverflow.com/search?q="+rst.msg);
+                return false;
+            }else{
+                return true;
+            }
+            
+        // });
+    };
+
     function wtf_localStorage(name, value) {
         if (value) {
             localStorage.setItem(name, value);
@@ -378,7 +402,10 @@ right:50%;
     };
 
     terminal.init = function() {
-        
+        if(this.catcherr){
+            window.onerror=_doError;
+        }
+
         window.onkeydown = function(e) {
             if (e.keyCode === 120 || e.which === 120) {
                 terminal.show();
@@ -444,10 +471,10 @@ right:50%;
         terminal_modalbg.innerHTML = '<div id="terminal_modalbg" style="display:none"></div>';
         document.body.appendChild(terminal_modalbg);
 
-        window.onunload=function(){
+        window.onunload = function() {
             //save log
-            var log=wtf_localStorage('terminal_log')+document.getElementById('terminal_show').innerHTML;
-            wtf_localStorage('terminal_log',log);
+            var log = wtf_localStorage('terminal_log') + document.getElementById('terminal_show').innerHTML;
+            wtf_localStorage('terminal_log', log);
         }
     }
     terminal.eval = function(tty) {
@@ -461,7 +488,7 @@ right:50%;
             clearTimeout(terminal._alerttimer);
         }
         var terminal_alertconhtml = '<pre class="terminal_alert">' + text + '</pre>';
-        this.log('***alert***\n'+text)
+        this.log('*** alert ***\n' + text)
         if (document.getElementById('terminal_alertcon')) {
             document.getElementById('terminal_alertcon').innerHTML = terminal_alertconhtml;
         } else {
@@ -579,7 +606,7 @@ right:50%;
         }
 
     }
-    
+
     terminal.showmodalbg = function() {
         var modalbg = document.getElementById('terminal_modalbg');
         if (modalbg.style.display == 'none') {
@@ -617,9 +644,13 @@ right:50%;
         //console.log('terminal: '+output);
         var show = document.getElementById('terminal_show');
         show.innerHTML += output + '\n';
-        if(this.debug){
+        if (this.debug) {
             console.log(output);
         }
+    }
+
+    terminal.consoleLocalLog=function(){
+        console.log(wtf_localStorage('terminal_log'));
     }
     return terminal;
 })()
