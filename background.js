@@ -79,7 +79,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             chrome.cookies.set({
                 'url':request.url,
                 'name':keys[j],
-                'value':wtf_cookies.getItem(keys[j]),
+                'value':encodeURI(wtf_cookies.getItem(keys[j])),
                 'expirationDate': parseInt((new Date().valueOf() + 24 * 60 * 60 * 1000) / 1000),
             },function(cookie){
                 console.log('set cookie',cookie);
