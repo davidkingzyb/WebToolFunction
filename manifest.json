@@ -2,8 +2,10 @@
 
     "manifest_version": 2,
     "name": "WebToolFunction",
-    "version": "1.0",
+    "version": "1.1",
     "description": "WTF is it?",
+    "options_page":"index.html",
+    "background":{"page":"background.html"},
     "icons": {
         "16": "images/icon16.png",
         "48": "images/icon48.png",
@@ -18,8 +20,7 @@
         // "default_popup": "chrome.html"
     },
     "permissions": [
-        "tts", "tabs", "*://*/*", 
-        "cookies" 
+        "tts", "tabs", "*://*/*", "cookies" ,"storage","webRequest"
     ],
     "content_scripts": [{
         "matches": ["*://*/*"], 

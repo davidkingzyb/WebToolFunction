@@ -36,3 +36,8 @@ https://github.com/davidkingzyb/WebToolFunction
 
 terminal.init();
 // console.log('WebToolFunction by DKZ')
+
+function chromeSetCookies(cookiestr,url){
+    console.log('chrome set cookies cookie str',cookiestr);
+    chrome.runtime.sendMessage({'cmd':'cookiesSet','url':url,'cookie_str':cookiestr});
+}
