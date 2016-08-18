@@ -38,24 +38,28 @@ var wtf = (function() {
 
     wtf.get = function(url, callback, onerror) {
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
+        xhr.onload = function() {
+            if ((xhr.status >= 200 && xhr.status<300)||xhr.status==304) {
                 var resp = xhr.responseText;
-                try{
-                    resp=JSON.parse(resp);
-                }catch(e){}
+                try {
+                    resp = JSON.parse(resp);
+                } catch (e) {}
                 callback(resp);
             } else {
-                if (xhr.status != 0 && xhr.status != 200) {
-                    if(onerror){
-                        onerror(xhr);
-                        onerror=null;
-                    }
+                if (onerror) {
+                    onerror(xhr);
+                    onerror = null;
                 }
             }
-        };
+        }
         xhr.timeout = 200000;
         xhr.ontimeout = function() {
+            if(onerror){
+                onerror(xhr);
+                onerror=null;
+            }
+        }
+        xhr.onerror = function() {
             if(onerror){
                 onerror(xhr);
                 onerror=null;
@@ -67,24 +71,28 @@ var wtf = (function() {
 
     wtf.post = function(url, data, callback, onerror,content_type) {
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
+        xhr.onload = function() {
+            if ((xhr.status >= 200 && xhr.status<300)||xhr.status==304) {
                 var resp = xhr.responseText;
-                try{
-                    resp=JSON.parse(resp);
-                }catch(e){}
+                try {
+                    resp = JSON.parse(resp);
+                } catch (e) {}
                 callback(resp);
             } else {
-                if (xhr.status != 0 && xhr.status != 200) {
-                    if(onerror){
-                        onerror(xhr);
-                        onerror=null;
-                    }
+                if (onerror) {
+                    onerror(xhr);
+                    onerror = null;
                 }
             }
-        };
+        }
         xhr.timeout = 200000;
         xhr.ontimeout = function() {
+            if(onerror){
+                onerror(xhr);
+                onerror=null;
+            }
+        }
+        xhr.onerror = function() {
             if(onerror){
                 onerror(xhr);
                 onerror=null;

@@ -1,16 +1,16 @@
 <!DOSTYPE html>
 <html>
-<head>
-<title>WebToolFunction test</title>
-<meta charset="utf-8">
 
-<script type="text/javascript" src="wtf.js"></script>
-<script type="text/javascript" src="terminal.js"></script>
+<head>
+    <title>WebToolFunction test</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="wtf.js"></script>
+    <script type="text/javascript" src="terminal.js"></script>
 </head>
+
 <body>
     <div id="container">
-        <h1>WebToolFunction</h1>
-        press F9 open terminal
+        <h1>WebToolFunction</h1> press F9 open terminal
         <h2 class="js">wtf.js</h2>
         <ul>
             <li><a href="javascript:testreqstr()">wtf.reqstr(obj)</a></li>
@@ -28,7 +28,6 @@
             <li><a href="javascript:testwrapTag()">wtf.wrapTag(tag,value,attr)</a></li>
             <li><a href="javascript:testtypeOf()">wtf.typeOf(obj)</a></li>
         </ul>
-
         <h2 class="js">terminal.js</h2>
         <ul>
             <li>terminal.init()</li>
@@ -38,37 +37,42 @@
             <li><a id="alerter" href="javascript:terminal.alert('terminal show')">terminal.alert(msg)</a></li>
             <li><a href="javascript:testterminalconfirm()">terminal.confirm(msg,callback)</a></li>
             <li><a href="javascript:testterminalprompt()">terminal.prompt(msg,callback)</a></li>
+            <li><a href="javascript:testterminaldebug()">terminal.debug=true</a></li>
+            <li><a href="javascript:testterminalcatcherr()">terminal.catcherr=true</a></li>
+            <li><a href="javascript:terminal.consoleLocalLog()">terminal.consoleLocalLog()</a></li>
         </ul>
-    
     </div>
     <div>GitHub: <a href="https://github.com/davidkingzyb/WebToolFunction">https://github.com/davidkingzyb/WebToolFunction</a></div>
-<script type="text/javascript">
-
+    <script type="text/javascript">
+    terminal.catcherr = true;
     terminal.init();
 
-    function testreqstr(){
-        var r=wtf.reqstr({q:1,qq:2});
-        terminal.log('testreqstr:',r);
+    function testreqstr() {
+        var r = wtf.reqstr({
+            q: 1,
+            qq: 2
+        });
+        terminal.log('testreqstr:', r);
     }
 
-    function testget(){
-        wtf.get('http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}',function(d){
+    function testget() {
+        wtf.get('http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}', function(d) {
             terminal.log(d);
-        },function(e){
+        }, function(e) {
             terminal.log(e);
         })
     }
 
-    function testpost(){
-        wtf.post('http://dkzhome.sinaapp.com/clio','func=dotree&obj={"a":1,"b":[1,2]}',function(d){
+    function testpost() {
+        wtf.post('http://dkzhome.sinaapp.com/clio', 'func=dotree&obj={"a":1,"b":[1,2]}', function(d) {
             terminal.log(d);
 
-        },function(e){
+        }, function(e) {
             terminal.log(e);
         })
     }
 
-    function test$(){
+    function test$() {
         terminal.alert('open console')
         console.log(wtf.$('#container'))
         console.log(wtf.$$('.js')[0])
@@ -77,107 +81,128 @@
         console.log(wtf.$tag('h2'))
     }
 
-    function testurlquery(){
-        var q=wtf.urlquery('obj','http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}')
+    function testurlquery() {
+        var q = wtf.urlquery('obj', 'http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}')
         terminal.log(q)
     }
 
-    function teststorage(storage){
+    function teststorage(storage) {
         terminal.alert('open console')
-        terminal.log(wtf[storage]('storagenull',null))
-        terminal.log(wtf[storage]('storagestr','str'))
-        terminal.log(wtf[storage]('storagearr',[1,2,3]))
-        terminal.log(wtf[storage]('storageobj',{a:1,b:2}))
+        terminal.log(wtf[storage]('storagenull', null))
+        terminal.log(wtf[storage]('storagestr', 'str'))
+        terminal.log(wtf[storage]('storagearr', [1, 2, 3]))
+        terminal.log(wtf[storage]('storageobj', {
+            a: 1,
+            b: 2
+        }))
         console.log(wtf[storage]('storagenull'))
         console.log(wtf[storage]('storagestr'))
         console.log(wtf[storage]('storagearr'))
         console.log(wtf[storage]('storageobj'))
     }
 
-    function testlocalStorage(){
+    function testlocalStorage() {
         teststorage('localStorage');
     }
 
-    function testsessionStorage(){
+    function testsessionStorage() {
         teststorage('sessionStorage');
     }
 
-    function test$cookie(){
-        terminal.log(wtf.$cookie('cookie','test',10000)) 
+    function test$cookie() {
+        terminal.log(wtf.$cookie('cookie', 'test', 10000))
         terminal.log(wtf.$cookie('cookie'))
     }
 
-    function testcookies(){
+    function testcookies() {
         terminal.log(wtf.cookies.getItem('cookie'))
-        terminal.log(wtf.cookies.setItem('cookies','testcookies'))
+        terminal.log(wtf.cookies.setItem('cookies', 'testcookies'))
         terminal.log(wtf.cookies.removeItem('cookie'))
         terminal.log(wtf.cookies.keys())
         terminal.log(wtf.cookies.clear())
         terminal.log(wtf.cookies.hasItem('cookie'))
     }
 
-    function testloadScript(){
-        wtf.loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js',function(){
+    function testloadScript() {
+        wtf.loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js', function() {
             terminal.alert('load jQuery')
             terminal.log($('.js'));
         })
     }
 
-    function testloadStyle(){
-        wtf.loadStyle('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',function(){
+    function testloadStyle() {
+        wtf.loadStyle('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', function() {
             terminal.alert('load bootstrap')
         })
     }
 
-    function testhtmlEscape(){
+    function testhtmlEscape() {
         terminal.log(wtf.htmlEscape('<img src="null.jpg" onerror="alert(a)">'))
     }
 
-    function testwrapTag(){
-        terminal.log(wtf.wrapTag('a','a tag','href="#"'))
+    function testwrapTag() {
+        terminal.log(wtf.wrapTag('a', 'a tag', 'href="#"'))
     }
 
-    function testtypeOf(){
+    function testtypeOf() {
         terminal.log(wtf.typeOf('string'))
         terminal.log(wtf.typeOf([]))
         terminal.log(wtf.typeOf({}))
         terminal.log(wtf.typeOf(0))
-        terminal.log(wtf.typeOf(function(){}))
+        terminal.log(wtf.typeOf(function() {}))
         terminal.log(wtf.typeOf(null))
         terminal.log(wtf.typeOf(true))
         terminal.log(wtf.typeOf(new Date()))
         terminal.log(wtf.typeOf(/a/g))
-        try{
-            var a=aa;
-        }catch(e){
+        try {
+            var a = aa;
+        } catch (e) {
             terminal.log(wtf.typeOf(e))
         }
     }
 
-    function testterminalconfirm(){
-        terminal.confirm('test confirm\n confirm text is dkz ?',function(e){
-            if(e){
+    function testterminalconfirm() {
+        terminal.confirm('test confirm\n confirm text is dkz ?', function(e) {
+            if (e) {
                 terminal.alert('confirm true');
-            }else{
+            } else {
                 terminal.alert('confirm false');
             }
         })
     }
 
-    function testterminalprompt(){
-        terminal.prompt('test prompt\n please input:',function(e){
-            if(e){
+    function testterminalprompt() {
+        terminal.prompt('test prompt\n please input:', function(e) {
+            if (e) {
                 terminal.alert(e);
-            }
-            else{
+            } else {
                 terminal.alert('prompt cancel');
             }
         })
     }
 
-</script>
+    function testterminaldebug() {
+        if (!terminal.debug) {
+            terminal.debug = true;
+            terminal.log('debug=true');
+        } else {
+            terminal.debug = false;
+            terminal.log('debug=false');
+        }
 
+    }
 
+    function testterminalcatcherr() {
 
+        try {
+            console.log(aaa);
+        } catch (e) {
+            console.log(e.message, e);
+        }
+        console.log(aaa);
+        console.log('catcherr ok');
+    }
+    </script>
 </body>
+
 </html>
