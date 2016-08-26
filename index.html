@@ -10,7 +10,10 @@
 
 <body>
     <div id="container">
-        <h1>WebToolFunction</h1> press F9 open terminal
+        <h1>WebToolFunction</h1>
+        <div>GitHub: <a href="https://github.com/davidkingzyb/WebToolFunction">https://github.com/davidkingzyb/WebToolFunction</a></div>
+        <br>
+        <div>press F9 open terminal</div>
         <h2 class="js">wtf.js</h2>
         <ul>
             <li><a href="javascript:testreqstr()">wtf.reqstr(obj)</a></li>
@@ -41,10 +44,23 @@
             <li><a href="javascript:testterminalcatcherr()">terminal.catcherr=true</a></li>
             <li><a href="javascript:terminal.consoleLocalLog()">terminal.consoleLocalLog()</a></li>
         </ul>
+        <h2 class="js">playsound.js</h2>
+        <ul>
+            <li>playsound.path</li>
+            <li>playsound.type</li>
+            <li>playsound.volume</li>
+            <li>playsound.loadsound(name)</li>
+            <li>playsound.play(name)</li>
+            <li>playsound.pause(name)</li>
+            <li>playsound.stop(name)</li>
+            <li>playsound.onloop(name)</li>
+            <li>playsound.offloop(name)</li>
+            <li>playsound.loop(name,times)</li>
+        </ul>
     </div>
-    <div>GitHub: <a href="https://github.com/davidkingzyb/WebToolFunction">https://github.com/davidkingzyb/WebToolFunction</a></div>
     <script type="text/javascript">
     terminal.catcherr = true;
+    // terminal.isbig=true;
     terminal.init();
 
     function testreqstr() {

@@ -123,6 +123,12 @@ console in your website
 
 a command user interface for debug web application
 
+####terminal.isbig
+
+big terminal 800x600
+
+- default=false
+
 ####terminal.debug
 
 use console too
@@ -169,7 +175,7 @@ console log all terminal log in localstorage
 
 ###playsound.js
 
-Sound player use HTML5 <audio>  
+Sound player use HTML5 &It;audio&gt;  
 
 ####playsound.path
 

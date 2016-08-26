@@ -36,8 +36,162 @@ var terminal = (function() {
     terminal.ismodalbg = false;
     terminal.debug = false;
     terminal.catcherr=false;
+    terminal.isbig=false;
+        var csstemplatebig = `
+<style>
+#terminal_modalbg{
+    position:fixed;
+    z-index:990;
+    width:100%;
+    height:100%;
+    background-color:rgba(10,10,10,0.1);
+    top:0px;
+    left:0px;
+}
+#terminal pre{
+    margin:0;
+}
+#terminal{
+    color:white;
+    font-family: 'Lucida Console', Monaco, monospace;
+    position:fixed;
+    width:800px;
+    height:600px;
+    left:50%;
+    bottom:50%;
+    margin-bottom: -300px;
+    margin-left: -400px;
+    background-color: rgba(10,10,10,0.4);
+    z-index:999;
+}
+#terminal>pre{
+position:absolute;
+bottom:10px;
+margin-left: 10px;
+margin-right:10px;
+    
+}
+#terminal_show{
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height: 574px;
+    width: 790px;
+}
+#terminal pre a{
+    color:white;
+}
+#terminal pre a:hover{
+    color:#222;
+}
+#terminal_input{
+    margin:0px;
+    padding:0px;
+    background-color: rgba(10,10,10,0.01);
+    border:0px;
+    color:white;
+    font-family: 'Lucida Console', Monaco, monospace;
+    outline:none;
+}
+#terminalbg{
+    position: relative;
+    height: 26px;
+    width: 100%;
+    top: 574px;
+    background-color: rgba(0,0,0,0.5);
+}
 
-    var csstemplate = `
+.terminal_alert{
+font-size:20px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_alertcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%;
+    z-index:1000;
+
+}
+
+.terminal_confirm{
+font-size:20px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_confirmcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%;
+    z-index:1000;
+
+}
+
+#terminal_confirmcon a{
+    color:white;
+}
+
+#terminal_confirmcon a:hover{
+    color:#555;
+}
+
+.terminal_prompt{
+font-size:20px;
+color:white;
+background:black;
+border-radius:5px;
+padding:10px;opacity:0.8;
+position:relative;
+float:left;
+right:50%;
+}
+
+#terminal_promptcon{
+    position:fixed;
+    float:left;
+    clear:left;
+    top:45%;
+    left:50%;
+    z-index:1000;
+
+}
+
+#terminal_promptcon a{
+    color:white;
+}
+
+#terminal_promptcon a:hover{
+    color:#555;
+}
+#terminal_promptinput{
+    margin:0px;
+    padding:0px;
+    background-color: rgba(10,10,10,0.01);
+    border:0px;
+    color:white;
+    font-family: 'Lucida Console', Monaco, monospace;
+    outline:none;
+    font-size:20px;
+}
+</style>
+    `
+
+    var csstemplatesmall = `
 <style>
 #terminal_modalbg{
     position:fixed;
@@ -401,7 +555,7 @@ right:50%;
         }
     };
 
-    terminal.init = function() {
+    terminal.init = function(config) {
         if(this.catcherr){
             window.onerror=_doError;
         }
@@ -429,6 +583,11 @@ right:50%;
         }
         var terminalcon = document.createElement('div');
         terminalcon.id = 'terminalcon';
+        var csstemplate=csstemplatesmall;
+        if(terminal.isbig){
+            csstemplate=csstemplatebig;
+        }
+
         terminalcon.innerHTML = navigator.userAgent.toLowerCase().indexOf('mobile') < 0 ? csstemplate + template : cssmobiletemplate + template;
         document.body.appendChild(terminalcon);
         var terminal_TTYARR = JSON.parse(wtf_localStorage('terminal_TTYARR'));
