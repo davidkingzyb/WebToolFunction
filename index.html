@@ -4,6 +4,7 @@
 <head>
     <title>WebToolFunction test</title>
     <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="tui.css"> -->
     <script type="text/javascript" src="wtf.js"></script>
     <script type="text/javascript" src="terminal.js"></script>
 </head>
@@ -43,24 +44,27 @@
             <li><a href="javascript:testterminaldebug()">terminal.debug=true</a></li>
             <li><a href="javascript:testterminalcatcherr()">terminal.catcherr=true</a></li>
             <li><a href="javascript:terminal.consoleLocalLog()">terminal.consoleLocalLog()</a></li>
-        </ul>
-        <h2 class="js">playsound.js</h2>
-        <ul>
-            <li>playsound.path</li>
-            <li>playsound.type</li>
-            <li>playsound.volume</li>
-            <li>playsound.loadsound(name)</li>
-            <li>playsound.play(name)</li>
-            <li>playsound.pause(name)</li>
-            <li>playsound.stop(name)</li>
-            <li>playsound.onloop(name)</li>
-            <li>playsound.offloop(name)</li>
-            <li>playsound.loop(name,times)</li>
+            <li>terminal.istui</li>
+            <li><a href="javascript:testterminaltuifmt()">terminal.tuifmt(template,map)</a></li>
+            
         </ul>
     </div>
+    <pre class="tui tuibg" id='tuitest' style="float:left;">
+
+<span class="blue">tui.less</span> <span class="green">Types User Interface</span>
+<span class="grey">======================================================================</span>
+<span class="fuschia"># Usage</span>
+    $ lessc tui.less > tui.css
+<span class="grey">----------------------------------------------------------------------</span>
+<span class="fuschia"># terminal</span>
+<span class="yellow">- terminal.tuifmt(template,map)</span>
+
+<a href="javascript:testterminaltuifmt()" class="purple">[TEST]</a>
+    </pre>
     <script type="text/javascript">
     terminal.catcherr = true;
     // terminal.isbig=true;
+    terminal.istui=true;
     terminal.init();
 
     function testreqstr() {
@@ -217,6 +221,28 @@
         }
         console.log(aaa);
         console.log('catcherr ok');
+    }
+
+    function testterminaltuifmt(){
+        var template=`
+{{tui.less}} {{Types User Interface}}
+{{==============================================}}
+{{test terminal ok}}
+[[NULL]]
+{{----------------------------------------------}}
+        `
+        var map={
+            'tui.less':',blue',
+            'Types User Interface':',green',
+            'test terminal ok':',yellow',
+            'NULL':'#,[NULL],purple',
+            '==============================================':',grey',
+            '----------------------------------------------':',grey'
+        }
+
+        var output=terminal.tuifmt(template,map);
+        terminal.log(output);
+        wtf.$id('tuitest').innerHTML=output;
     }
     </script>
 </body>

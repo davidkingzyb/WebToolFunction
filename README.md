@@ -20,6 +20,7 @@ Web tool functions for front-end developer
 
 
 - [**init.less**](#initless) reset css
+- [**tui.less**](#tuiless) Types User Interface
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**terminal.js**](#terminaljs) console in your website
 
@@ -32,6 +33,15 @@ Web tool functions for front-end developer
 reset css
 
 	$lessc init.less > static/style.css
+
+###tui.less
+
+    $lessc tui.less > static/tui.css
+
+    //in terminal.js
+    terminal.istui=true;
+    terminal.init();
+    terminal.tuifmt(template,map)
 
 ###wtf.js
 
@@ -171,6 +181,12 @@ console log all terminal log in localstorage
 ####terminal.confirm(msg,callback)
 
 ####terminal.prompt(msg,callback)
+
+####terminal.istui
+
+- default=false
+
+####terminal.tuifmt(template,map)
 
 ##Liscense
 
