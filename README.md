@@ -22,7 +22,6 @@ Web tool functions for front-end developer
 - [**init.less**](#initless) reset css
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**terminal.js**](#terminaljs) console in your website
-- [**playsound.js**](#playsoundjs) sound play use <audio>
 
 
 
@@ -172,40 +171,6 @@ console log all terminal log in localstorage
 ####terminal.confirm(msg,callback)
 
 ####terminal.prompt(msg,callback)
-
-###playsound.js
-
-Sound player use HTML5 &It;audio&gt;  
-
-####playsound.path
-
-- string './'
-
-####playsound.type
-
-- string '.mp3'
-
-####playsound.audios
-
-- obj {}
-
-####playsound.volume
-
-- number 0.5
-
-####playsound.loadsound(name)
-
-####playsound.play(name)
-
-####playsound.pause(name)
-
-####playsound.stop(name)
-
-####playsound.onloop(name)
-
-####playsound.offloop(name)
-
-####playsound.loop(name,times)
 
 ##Liscense
 
