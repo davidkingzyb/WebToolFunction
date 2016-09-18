@@ -41,3 +41,33 @@ function chromeSetCookies(cookiestr,url){
     console.log('chrome set cookies cookie str',cookiestr);
     chrome.runtime.sendMessage({'cmd':'cookiesSet','url':url,'cookie_str':cookiestr});
 }
+
+//search
+
+function google(q){
+    var qq=q.replace(/ /g,'+');
+    terminal.log('google search q='+qq);
+    window.open('https://www.google.com/search?q='+qq+'&ie=utf-8&oe=utf-8');
+}
+
+function baidu(q){
+    var wd=encodeURI(q);
+    terminal.log('baidu search wd='+wd);
+    window.open('https://www.baidu.com/s?wd='+wd);
+}
+
+function github(q){
+    terminal.log('github search q='+q);
+    window.open('https://github.com/search?utf8=%E2%9C%93&q='+q);
+}
+
+function sof(q){
+    terminal.log('stackoverflow search q='+q);
+    window.open('http://stackoverflow.com/search?q='+q);
+}
+
+function zhihu(q){
+    var qq=q.replace(/ /g,'+');
+    terminal.log('zhihu search q='+qq);
+    window.open('https://www.zhihu.com/search?type=content&q='+qq);
+}
