@@ -8,7 +8,7 @@
 
 Web tool functions for front-end developer
 
-[Chrome Extension](https://github.com/davidkingzyb/WebToolFunction/tree/chrome)
+[Chrome Extension](https://github.com/davidkingzyb/WebToolFunction/blob/chrome/chromeREADME.md)
 
 [Chrome App](https://github.com/davidkingzyb/WebToolFunction/tree/app)
 
