@@ -94,6 +94,7 @@ var terminal = (function() {
     margin:0;
 }
 #terminal{
+    text-align:left;
     color:white;
     font-family: 'Lucida Console', Monaco, monospace;
     position:fixed;
@@ -248,6 +249,7 @@ right:50%;
     margin:0;
 }
 #terminal{
+    text-align:left;
     color:white;
     font-family: 'Lucida Console', Monaco, monospace;
     position:fixed;
@@ -402,6 +404,7 @@ right:50%;
     margin:0;
 }
 #terminal{
+    text-align:left;
     color:white;
     font-family: 'Lucida Console', Monaco, monospace;
     position:fixed;
