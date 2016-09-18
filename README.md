@@ -20,9 +20,9 @@ Web tool functions for front-end developer
 
 
 - [**init.less**](#initless) reset css
+- [**tui.less**](#tuiless) Types User Interface
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**terminal.js**](#terminaljs) console in your website
-- [**playsound.js**](#playsoundjs) sound play use <audio>
 
 
 
@@ -33,6 +33,15 @@ Web tool functions for front-end developer
 reset css
 
 	$lessc init.less > static/style.css
+
+###tui.less
+
+    $lessc tui.less > static/tui.css
+
+    //in terminal.js
+    terminal.istui=true;
+    terminal.init();
+    terminal.tuifmt(template,map)
 
 ###wtf.js
 
@@ -123,6 +132,12 @@ console in your website
 
 a command user interface for debug web application
 
+####terminal.isbig
+
+big terminal 800x600
+
+- default=false
+
 ####terminal.debug
 
 use console too
@@ -167,39 +182,11 @@ console log all terminal log in localstorage
 
 ####terminal.prompt(msg,callback)
 
-###playsound.js
+####terminal.istui
 
-Sound player use HTML5 <audio>  
+- default=false
 
-####playsound.path
-
-- string './'
-
-####playsound.type
-
-- string '.mp3'
-
-####playsound.audios
-
-- obj {}
-
-####playsound.volume
-
-- number 0.5
-
-####playsound.loadsound(name)
-
-####playsound.play(name)
-
-####playsound.pause(name)
-
-####playsound.stop(name)
-
-####playsound.onloop(name)
-
-####playsound.offloop(name)
-
-####playsound.loop(name,times)
+####terminal.tuifmt(template,map)
 
 ##Liscense
 
