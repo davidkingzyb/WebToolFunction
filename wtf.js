@@ -135,7 +135,11 @@ var wtf = (function() {
         if (wtf.typeOf(value)==='string') {
             localStorage.setItem(name, value);
             return localStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
+        }else if(wtf.typeOf(value)==='number'){
+            localStorage.setItem(name,value.toString());
+            return localStorage.getItem(name);
+        }
+        else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
             localStorage.setItem(name,JSON.stringify(value));
             return localStorage.getItem(name);
         }else if(wtf.typeOf(value)==='null'){
@@ -160,7 +164,11 @@ var wtf = (function() {
         if (wtf.typeOf(value)==='string') {
             sessionStorage.setItem(name, value);
             return sessionStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
+        }else if(wtf.typeOf(value)==='number'){
+            sessionStorage.setItem(name,value.toString());
+            return sessionStorage.getItem(name);
+        }
+        else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
             sessionStorage.setItem(name,JSON.stringify(value));
             return sessionStorage.getItem(name);
         }else if(wtf.typeOf(value)==='null'){
