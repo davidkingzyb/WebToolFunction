@@ -62,7 +62,7 @@
 <a href="javascript:testterminaltuifmt()" class="purple">[TEST]</a>
     </pre>
     <script type="text/javascript">
-    terminal.catcherr = true;
+    // terminal.catcherr = true;
     // terminal.isbig=true;
     terminal.istui=true;
     terminal.init();
@@ -115,10 +115,12 @@
             a: 1,
             b: 2
         }))
+        terminal.log(wtf[storage]('storagenum',100));
         console.log(wtf[storage]('storagenull'))
         console.log(wtf[storage]('storagestr'))
         console.log(wtf[storage]('storagearr'))
         console.log(wtf[storage]('storageobj'))
+        console.log(wtf[storage]('storagenum'))
     }
 
     function testlocalStorage() {

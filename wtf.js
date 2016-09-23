@@ -39,7 +39,7 @@ var wtf = (function() {
     wtf.get = function(url, callback, onerror) {
         var xhr = new XMLHttpRequest();
         xhr.onload = function() {
-            if ((xhr.status >= 200 && xhr.status<300)||xhr.status==304) {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
                 var resp = xhr.responseText;
                 try {
                     resp = JSON.parse(resp);
@@ -54,25 +54,25 @@ var wtf = (function() {
         }
         xhr.timeout = 200000;
         xhr.ontimeout = function() {
-            if(onerror){
+            if (onerror) {
                 onerror(xhr);
-                onerror=null;
+                onerror = null;
             }
         }
         xhr.onerror = function() {
-            if(onerror){
+            if (onerror) {
                 onerror(xhr);
-                onerror=null;
+                onerror = null;
             }
         }
         xhr.open('GET', url, true);
         xhr.send();
     };
 
-    wtf.post = function(url, data, callback, onerror,content_type) {
+    wtf.post = function(url, data, callback, onerror, content_type) {
         var xhr = new XMLHttpRequest();
         xhr.onload = function() {
-            if ((xhr.status >= 200 && xhr.status<300)||xhr.status==304) {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
                 var resp = xhr.responseText;
                 try {
                     resp = JSON.parse(resp);
@@ -87,24 +87,24 @@ var wtf = (function() {
         }
         xhr.timeout = 200000;
         xhr.ontimeout = function() {
-            if(onerror){
+            if (onerror) {
                 onerror(xhr);
-                onerror=null;
+                onerror = null;
             }
         }
         xhr.onerror = function() {
-            if(onerror){
+            if (onerror) {
                 onerror(xhr);
-                onerror=null;
+                onerror = null;
             }
         }
         xhr.open('POST', url, true);
-        if(content_type==='json'){
+        if (content_type === 'json') {
             xhr.setRequestHeader("Content-type", "application/json");
-        }else if(content_type==='formdata'){
+        } else if (content_type === 'formdata') {
             // dont set header
             // xhr.setRequestHeader("Content-type", "multipart/form-data");
-        }else{
+        } else {
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         }
         xhr.send(data);
@@ -132,59 +132,37 @@ var wtf = (function() {
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
     wtf.localStorage = function(name, value) {
-        if (wtf.typeOf(value)==='string') {
-            localStorage.setItem(name, value);
-            return localStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='number'){
-            localStorage.setItem(name,value.toString());
-            return localStorage.getItem(name);
-        }
-        else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
-            localStorage.setItem(name,JSON.stringify(value));
-            return localStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='null'){
+        if (wtf.typeOf(value) === 'null') {
             localStorage.removeItem(name);
             return null;
-        }
-        else {
-            if (localStorage.getItem(name)) {
-                var r;
-                try{
-                    r=JSON.parse(localStorage.getItem(name));
-                }catch(e){
-                    r=localStorage.getItem(name);
-                }
-                return r;
-            } else {
+        } else if (value) {
+            var vobj = { 'd': value };
+            localStorage.setItem(name, JSON.stringify(vobj));
+            return value;
+        } else {
+            var vstr = localStorage.getItem(name);
+            if (vstr) {
+                var r = JSON.parse(vstr);
+                return r.d;
+            }else{
                 return null;
             }
         }
     };
     wtf.sessionStorage = function(name, value) {
-        if (wtf.typeOf(value)==='string') {
-            sessionStorage.setItem(name, value);
-            return sessionStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='number'){
-            sessionStorage.setItem(name,value.toString());
-            return sessionStorage.getItem(name);
-        }
-        else if(wtf.typeOf(value)==='object'||wtf.typeOf(value)==='array'){
-            sessionStorage.setItem(name,JSON.stringify(value));
-            return sessionStorage.getItem(name);
-        }else if(wtf.typeOf(value)==='null'){
-            sessionStorage.removeItem(name);
+        if (wtf.typeOf(value) === 'null') {
+            localStorage.removeItem(name);
             return null;
-        }
-        else {
-            if (sessionStorage.getItem(name)) {
-                var r;
-                try{
-                    r=JSON.parse(sessionStorage.getItem(name));
-                }catch(e){
-                    r=sessionStorage.getItem(name);
-                }
-                return r;
-            } else {
+        } else if (value) {
+            var vobj = { 'd': value };
+            localStorage.setItem(name, JSON.stringify(vobj));
+            return value;
+        } else {
+            var vstr = localStorage.getItem(name);
+            if (vstr) {
+                var r = JSON.parse(vstr);
+                return r.d;
+            }else{
                 return null;
             }
         }
@@ -301,20 +279,20 @@ var wtf = (function() {
     };
 
     //js
-    var _wtfclasstype = {} ;
-    "Boolean Number String Function Array Date RegExp Object Error".split(" ").forEach(function(e,i){
-        _wtfclasstype[ "[object " + e + "]" ] = e.toLowerCase();
-    }) ;
-    wtf.typeOf=function(obj){
-        if ( obj == null ){
-            return String( obj );
+    var _wtfclasstype = {};
+    "Boolean Number String Function Array Date RegExp Object Error".split(" ").forEach(function(e, i) {
+        _wtfclasstype["[object " + e + "]"] = e.toLowerCase();
+    });
+    wtf.typeOf = function(obj) {
+        if (obj == null) {
+            return String(obj);
         }
         return typeof obj === "object" || typeof obj === "function" ?
-            _wtfclasstype[ _wtfclasstype.toString.call(obj) ] || "object" :
+            _wtfclasstype[_wtfclasstype.toString.call(obj)] || "object" :
             typeof obj;
     }
 
-    wtf.ua=navigator.userAgent.toLowerCase();
+    wtf.ua = navigator.userAgent.toLowerCase();
 
     return wtf;
 })();
