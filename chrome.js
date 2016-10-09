@@ -71,3 +71,11 @@ function zhihu(q){
     terminal.log('zhihu search q='+qq);
     window.open('https://www.zhihu.com/search?type=content&q='+qq);
 }
+
+function mdn(q){
+    window.open('https://developer.mozilla.org/zh-CN/search?q='+q+'&topic=apps&topic=html&topic=css&topic=js&topic=api&topic=webdev');
+}
+
+function u3d(q){
+    window.open('https://docs.unity3d.com/ScriptReference/30_search.html?q='+q);
+}
