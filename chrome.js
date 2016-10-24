@@ -79,3 +79,7 @@ function mdn(q){
 function u3d(q){
     window.open('https://docs.unity3d.com/ScriptReference/30_search.html?q='+q);
 }
+
+function wiki(q){
+    window.open('https://zh.wikipedia.org/w/index.php?search='+q);
+   }
