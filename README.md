@@ -126,6 +126,8 @@ wrap html tag
 
 ####wtf.typeOf(obj)
 
+####wtf.imgToBase64(img,type)
+
 ###terminal.js
 
 console in your website

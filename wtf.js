@@ -144,7 +144,7 @@ var wtf = (function() {
             if (vstr) {
                 var r = JSON.parse(vstr);
                 return r.d;
-            }else{
+            } else {
                 return null;
             }
         }
@@ -162,7 +162,7 @@ var wtf = (function() {
             if (vstr) {
                 var r = JSON.parse(vstr);
                 return r.d;
-            }else{
+            } else {
                 return null;
             }
         }
@@ -260,6 +260,18 @@ var wtf = (function() {
             document.getElementsByTagName('head')[0].appendChild(cssLink);
         }
     };
+
+    wtf.imgToBase64 = function(img,type) {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+        var t=type||'image/jpeg';
+        var base64 = canvas.toDataURL(t);
+        canvas = null;
+        return base64;
+    }
 
     //selector
     wtf.$$ = function(selector) {
