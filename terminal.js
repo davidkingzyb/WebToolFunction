@@ -37,48 +37,7 @@ var terminal = (function() {
     terminal.debug = false;
     terminal.catcherr=false;
     terminal.isbig=false;
-    terminal.istui=false;
-    var tuicss=`
-<style>
-.white {
-  color: #f8f8f2;
-}
-.green {
-  color: #a6e22e;
-}
-.orange {
-  color: #fd971f;
-}
-.purple {
-  color: #ae81ff;
-}
-.fuschia {
-  color: #ec007c;
-}
-.yellow {
-  color: #efe158;
-}
-.blue {
-  color: #66d9ef;
-}
-.grey {
-  color: #999999;
-}
-.tuibg {
-  background-color: #00303e !important;
-}
-.tui {
-  background-color: rgba(10, 10, 10, 0.4);
-  color: #f8f8f2;
-  font-family: 'Lucida Console', Monaco, monospace;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 5px;
-  font-size: 12px;
-}
-</style>
-    `
+
     var csstemplatebig = `
 <style>
 #terminal_modalbg{
@@ -632,9 +591,6 @@ right:50%;
         if(terminal.isbig){
             csstemplate=csstemplatebig;
         }
-        if(terminal.istui){
-            csstemplate+=tuicss;
-        }
 
         terminalcon.innerHTML = navigator.userAgent.toLowerCase().indexOf('mobile') < 0 ? csstemplate + template : cssmobiletemplate + template;
         document.body.appendChild(terminalcon);
@@ -863,28 +819,7 @@ right:50%;
     terminal._wtfWrapTag=function(tag,value,attr){
         return '<' + tag + ' ' + attr + '>' + value + '</' + tag + '>';
     }
-    function _tuiWrapATag(k,argstr){
-        //argstr 'href,value,cls'
-        
-        var href=argstr.split(',')[0];
-        var value=argstr.split(',')[1]||k;
-        var cls=argstr.split(',')[2]||' ';
-        return terminal._wtfWrapTag('a',value,'href="'+href+'" class="'+cls+'"');
-    }
-    function _tuiWrapSpanTag(k,argstr){
-        //argstr 'value,cls'
-        var value=argstr.split(',')[0]||k;
-        var cls=argstr.split(',')[1]||'';
-        return terminal._wtfWrapTag('span',value,'class="'+cls+'"');
-    }
 
-    terminal.tuifmt=function(template,map){
-        for(var k in map){
-            template=template.replace('{{'+k+'}}',_tuiWrapSpanTag(k,map[k]));
-            template=template.replace('[['+k+']]',_tuiWrapATag(k,map[k]));
-        }
-        return template;
-    }
 
     return terminal;
 })()

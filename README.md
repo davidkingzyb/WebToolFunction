@@ -38,10 +38,6 @@ reset css
 
     $lessc tui.less > static/tui.css
 
-    //in terminal.js
-    terminal.istui=true;
-    terminal.init();
-    terminal.tuifmt(template,map)
 
 ###wtf.js
 
@@ -183,12 +179,6 @@ console log all terminal log in localstorage
 ####terminal.confirm(msg,callback)
 
 ####terminal.prompt(msg,callback)
-
-####terminal.istui
-
-- default=false
-
-####terminal.tuifmt(template,map)
 
 ##Liscense
 
