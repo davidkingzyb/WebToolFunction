@@ -34,6 +34,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 https://github.com/davidkingzyb/WebToolFunction
 */
 
+function help(){
+    terminal.log(`
+- chromeSetCookies(cookiestr,url)
+- google(q)
+- baidu(q)
+- github(q)
+- sof(q)        :stackoverflow
+- zhihu(q)
+- mdn(q)
+- u3d(q)
+- wiki(q)
+- translate(q)
+- translateZh(q)
+        `)
+}
+
 terminal.init();
 // console.log('WebToolFunction by DKZ')
 
@@ -82,4 +98,12 @@ function u3d(q){
 
 function wiki(q){
     window.open('https://zh.wikipedia.org/w/index.php?search='+q);
-   }
+}
+
+function translate(q){
+    window.open('https://translate.google.cn/#en/zh-CN/'+q);
+}
+
+function translateZh(q){
+    window.open('https://translate.google.cn/#zh-CN/en/'+q);
+}
