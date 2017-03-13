@@ -145,9 +145,13 @@ var terminal = (function() {
                 wtf_localStorage('terminal_TTYARR', JSON.stringify(terminal_TTYARR));
                 terminal_input.value = '';
                 var terminal_show = document.getElementById('terminal_show');
-                terminal_show.innerHTML += '\n-' + tty + '\n';
+                var ttycmd=tty[tty.length-1]==='/'?tty.slice(0,-1):tty;
+                terminal_show.innerHTML += '-' + ttycmd + '\n';
                 try {
-                    terminal.log(terminal.eval(tty));
+                    var evalreturn=terminal.eval(tty);
+                    if(evalreturn!==''){
+                        terminal.log(evalreturn);
+                    }  
                 } catch (e) {
                     terminal.log(e);
                 }
@@ -180,9 +184,22 @@ var terminal = (function() {
             wtf_localStorage('terminal_log', log);
         }
     }
+    var ttycache=[];
     terminal.eval = function(tty) {
-        var output = eval.call(window, tty);
-        return output;
+        if(tty[tty.length-1]==='/'){
+            ttycache.push(tty.slice(0,-1));
+            return '';
+        }else{
+            ttyconcat='';
+            for(var i=0;i<ttycache.length;i++){
+                ttyconcat+=ttycache[i];
+            }
+            ttyconcat+=tty;
+            ttycache=[];
+            var output = eval.call(window, ttyconcat);
+            return output;
+        }
+        
     }
     terminal._alerttimer = null;
     terminal.alert = function(text, hidetime) {
@@ -347,6 +364,14 @@ var terminal = (function() {
         //console.log('terminal: '+output);
         var show = document.getElementById('terminal_show');
         show.innerHTML += output + '\n';
+        if (this.debug) {
+            console.log(output);
+        }
+    }
+
+    terminal.print=function(msg){
+        var show = document.getElementById('terminal_show');
+        show.innerHTML += msg;
         if (this.debug) {
             console.log(output);
         }
