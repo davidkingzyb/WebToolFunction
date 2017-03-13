@@ -36,313 +36,11 @@ var terminal = (function() {
     terminal.ismodalbg = false;
     terminal.debug = false;
     terminal.catcherr=false;
+    terminal.isbig=false;
 
-    var csstemplate = `
-<style>
-#terminal_modalbg{
-    position:fixed;
-    z-index:990;
-    width:100%;
-    height:100%;
-    background-color:rgba(10,10,10,0.1);
-    top:0px;
-    left:0px;
-}
-#terminal pre{
-    margin:0;
-}
-#terminal{
-    color:white;
-    font-family: 'Lucida Console', Monaco, monospace;
-    position:fixed;
-    width:500px;
-    height:200px;
-    left:50%;
-    bottom:50%;
-    margin-bottom: -275px;
-    margin-left: -250px;
-    background-color: rgba(10,10,10,0.4);
-    z-index:999;
-}
-#terminal>pre{
-position:absolute;
-bottom:10px;
-margin-left: 10px;
-margin-right:10px;
-    
-}
-#terminal_show{
-    overflow-y:scroll;
-    overflow-x:hidden;
-    height: 174px;
-    width: 490px;
-}
-#terminal pre a{
-    color:white;
-}
-#terminal pre a:hover{
-    color:#222;
-}
-#terminal_input{
-    margin:0px;
-    padding:0px;
-    background-color: rgba(10,10,10,0.01);
-    border:0px;
-    color:white;
-    font-family: 'Lucida Console', Monaco, monospace;
-    outline:none;
-}
-#terminalbg{
-    position: relative;
-    height: 26px;
-    width: 100%;
-    top: 174px;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.terminal_alert{
-font-size:20px;
-color:white;
-background:black;
-border-radius:5px;
-padding:10px;opacity:0.8;
-position:relative;
-float:left;
-right:50%;
-}
-
-#terminal_alertcon{
-    position:fixed;
-    float:left;
-    clear:left;
-    top:45%;
-    left:50%;
-    z-index:1000;
-
-}
-
-.terminal_confirm{
-font-size:20px;
-color:white;
-background:black;
-border-radius:5px;
-padding:10px;opacity:0.8;
-position:relative;
-float:left;
-right:50%;
-}
-
-#terminal_confirmcon{
-    position:fixed;
-    float:left;
-    clear:left;
-    top:45%;
-    left:50%;
-    z-index:1000;
-
-}
-
-#terminal_confirmcon a{
-    color:white;
-}
-
-#terminal_confirmcon a:hover{
-    color:#555;
-}
-
-.terminal_prompt{
-font-size:20px;
-color:white;
-background:black;
-border-radius:5px;
-padding:10px;opacity:0.8;
-position:relative;
-float:left;
-right:50%;
-}
-
-#terminal_promptcon{
-    position:fixed;
-    float:left;
-    clear:left;
-    top:45%;
-    left:50%;
-    z-index:1000;
-
-}
-
-#terminal_promptcon a{
-    color:white;
-}
-
-#terminal_promptcon a:hover{
-    color:#555;
-}
-#terminal_promptinput{
-    margin:0px;
-    padding:0px;
-    background-color: rgba(10,10,10,0.01);
-    border:0px;
-    color:white;
-    font-family: 'Lucida Console', Monaco, monospace;
-    outline:none;
-    font-size:20px;
-}
-</style>
-    `
-    var cssmobiletemplate = `
-<style>
-#terminal_modalbg{
-    position:fixed;
-    z-index:990;
-    width:100%;
-    height:100%;
-    background-color:rgba(10,10,10,0.1);
-    top:0px;
-    left:0px;
-}
-
-#terminal pre{
-    margin:0;
-}
-#terminal{
-    color:white;
-    font-family: 'Lucida Console', Monaco, monospace;
-    position:fixed;
-    width:100%;
-    height:500px;
-    left:0px;
-    bottom:0px;
-    background-color: rgba(10,10,10,0.3);
-    z-index:999;
-    font-size:30px;
-}
-#terminal>pre{
-position:absolute;
-bottom:10px;
-margin-left: 10px;
-margin-right:10px;
-    
-}
-#terminal_show{
-    overflow-y:scroll;
-    overflow-x:hidden;
-    height: 447px;
-    width: 100%;
-}
-#terminal pre a{
-    color:white;
-}
-#terminal pre a:hover{
-    color:#222;
-}
-#terminal_input{
-    margin:0px;
-    padding:0px;
-    background-color: rgba(10,10,10,0.01);
-    border:0px;
-    color:white;
-    font-family: 'Lucida Console', Monaco, monospace;
-    outline:none;
-    font-size:30px;
-
-}
-#terminalbg{
-    position: relative;
-    height: 50px;
-    width: 100%;
-    top: 450px;
-    background-color: rgba(0,0,0,0.5);
-}
-.terminal_alert{
-font-size:40px;
-color:white;
-background:black;
-border-radius:5px;
-padding:10px;opacity:0.8;
-position:relative;
-float:left;
-right:50%;
-}
-
-#terminal_alertcon{
-    position:fixed;
-    float:left;
-    clear:left;
-    top:45%;
-    left:50%;
-    z-index:1000;
-
-}
-.terminal_confirm{
-font-size:40px;
-color:white;
-background:black;
-border-radius:5px;
-padding:10px;opacity:0.8;
-position:relative;
-float:left;
-right:50%;
-}
-
-#terminal_confirmcon{
-    position:fixed;
-    float:left;
-    clear:left;
-    top:45%;
-    left:50%;
-    z-index:1000;
-
-}
-
-#terminal_confirmcon a{
-    color:white;
-}
-
-#terminal_confirmcon a:hover{
-    color:#555;
-}
-
-.terminal_prompt{
-font-size:40px;
-color:white;
-background:black;
-border-radius:5px;
-padding:10px;opacity:0.8;
-position:relative;
-float:left;
-right:50%;
-}
-
-#terminal_promptcon{
-    position:fixed;
-    float:left;
-    clear:left;
-    top:45%;
-    left:50%;
-    z-index:1000;
-
-}
-
-#terminal_promptcon a{
-    color:white;
-}
-
-#terminal_promptcon a:hover{
-    color:#555;
-}
-#terminal_promptinput{
-    font-size:40px;
-    margin:0px;
-    padding:0px;
-    background-color: rgba(10,10,10,0.01);
-    border:0px;
-    color:white;
-    font-family: 'Lucida Console', Monaco, monospace;
-    outline:none;
-}
-</style>
-    `
+    var csstemplatebig = "<style>#terminal_modalbg{position:fixed;z-index:990;width:100%;height:100%;background-color:rgba(10,10,10,0.1);top:0px;left:0px;}#terminal pre{margin:0;}#terminal{text-align:left;color:white;font-family: 'Lucida Console', Monaco, monospace;position:fixed;width:800px;height:600px;left:50%;bottom:50%;margin-bottom: -300px;margin-left: -400px;background-color: rgba(10,10,10,0.4);z-index:999;}#terminal>pre{position:absolute;bottom:10px;margin-left: 10px;margin-right:10px;}#terminal_show{overflow-y:scroll;overflow-x:hidden;height: 574px;width: 790px;}#terminal pre a{color:white;}#terminal pre a:hover{color:#222;}#terminal_input{margin:0px;padding:0px;background-color: rgba(10,10,10,0.01);border:0px;color:white;font-family: 'Lucida Console', Monaco, monospace;outline:none;}#terminalbg{position: relative;height: 26px;width: 100%;top: 574px;background-color: rgba(0,0,0,0.5);}.terminal_alert{font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_alertcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}.terminal_confirm{font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_confirmcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}#terminal_confirmcon a{color:white;}#terminal_confirmcon a:hover{color:#555;}.terminal_prompt{font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_promptcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}#terminal_promptcon a{color:white;}#terminal_promptcon a:hover{color:#555;}#terminal_promptinput{margin:0px;padding:0px;background-color: rgba(10,10,10,0.01);border:0px;color:white;font-family: 'Lucida Console', Monaco, monospace;outline:none;font-size:20px;}</style>"
+    var csstemplatesmall = "<style>#terminal_modalbg{position:fixed;z-index:990;width:100%;height:100%;background-color:rgba(10,10,10,0.1);top:0px;left:0px;}#terminal pre{margin:0;}#terminal{text-align:left;color:white;font-family: 'Lucida Console', Monaco, monospace;position:fixed;width:500px;height:200px;left:50%;bottom:50%;margin-bottom: -275px;margin-left: -250px;background-color: rgba(10,10,10,0.4);z-index:999;}#terminal>pre{position:absolute;bottom:10px;margin-left: 10px;margin-right:10px;}#terminal_show{overflow-y:scroll;overflow-x:hidden;height: 174px;width: 490px;}#terminal pre a{color:white;}#terminal pre a:hover{color:#222;}#terminal_input{margin:0px;padding:0px;background-color: rgba(10,10,10,0.01);border:0px;color:white;font-family: 'Lucida Console', Monaco, monospace;outline:none;}#terminalbg{position: relative;height: 26px;width: 100%;top: 174px;background-color: rgba(0,0,0,0.5);}.terminal_alert{font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_alertcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}.terminal_confirm{font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_confirmcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}#terminal_confirmcon a{color:white;}#terminal_confirmcon a:hover{color:#555;}.terminal_prompt{font-size:20px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_promptcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}#terminal_promptcon a{color:white;}#terminal_promptcon a:hover{color:#555;}#terminal_promptinput{margin:0px;padding:0px;background-color: rgba(10,10,10,0.01);border:0px;color:white;font-family: 'Lucida Console', Monaco, monospace;outline:none;font-size:20px;}</style>"
+    var cssmobiletemplate = "<style>#terminal_modalbg{position:fixed;z-index:990;width:100%;height:100%;background-color:rgba(10,10,10,0.1);top:0px;left:0px;}#terminal pre{margin:0;}#terminal{text-align:left;color:white;font-family: 'Lucida Console', Monaco, monospace;position:fixed;width:100%;height:500px;left:0px;bottom:0px;background-color: rgba(10,10,10,0.3);z-index:999;font-size:30px;}#terminal>pre{position:absolute;bottom:10px;margin-left: 10px;margin-right:10px;}#terminal_show{overflow-y:scroll;overflow-x:hidden;height: 447px;width: 100%;}#terminal pre a{color:white;}#terminal pre a:hover{color:#222;}#terminal_input{margin:0px;padding:0px;background-color: rgba(10,10,10,0.01);border:0px;color:white;font-family: 'Lucida Console', Monaco, monospace;outline:none;font-size:30px;}#terminalbg{position: relative;height: 50px;width: 100%;top: 450px;background-color: rgba(0,0,0,0.5);}.terminal_alert{font-size:40px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_alertcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}.terminal_confirm{font-size:40px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_confirmcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}#terminal_confirmcon a{color:white;}#terminal_confirmcon a:hover{color:#555;}.terminal_prompt{font-size:40px;color:white;background:black;border-radius:5px;padding:10px;opacity:0.8;position:relative;float:left;right:50%;}#terminal_promptcon{position:fixed;float:left;clear:left;top:45%;left:50%;z-index:1000;}#terminal_promptcon a{color:white;}#terminal_promptcon a:hover{color:#555;}#terminal_promptinput{font-size:40px;margin:0px;padding:0px;background-color: rgba(10,10,10,0.01);border:0px;color:white;font-family: 'Lucida Console', Monaco, monospace;outline:none;}</style>"
 
     var nowdate = new Date().toDateString();
     var template = '<div id="terminal" style="display:none;"><div id="terminalbg"></div><pre><pre id="terminal_show"><a href="https://github.com/davidkingzyb/WebToolFunction">WebToolFunction</a> by DKZ ' + nowdate + '\n</pre>-<input type="text" id="terminal_input" size="50"></pre></div>'
@@ -401,7 +99,7 @@ right:50%;
         }
     };
 
-    terminal.init = function() {
+    terminal.init = function(config) {
         if(this.catcherr){
             window.onerror=_doError;
         }
@@ -429,22 +127,32 @@ right:50%;
         }
         var terminalcon = document.createElement('div');
         terminalcon.id = 'terminalcon';
+        var csstemplate=csstemplatesmall;
+        if(terminal.isbig){
+            csstemplate=csstemplatebig;
+        }
+
         terminalcon.innerHTML = navigator.userAgent.toLowerCase().indexOf('mobile') < 0 ? csstemplate + template : cssmobiletemplate + template;
         document.body.appendChild(terminalcon);
-        // var terminal_TTYARR = JSON.parse(wtf_localStorage('terminal_TTYARR'));
-        var TTYARR =[];
+        // var terminal_TTYARR = JSON.parse(wtf_localStorage('terminal_TTYARR'));//todo
+        // var TTYARR = terminal_TTYARR ? terminal_TTYARR.ttyarr : [];//todo
+        var TTYARR=[];//todo
         var terminal_input = document.getElementById('terminal_input');
         terminal_input.onkeydown = function(e) {
             if (e.keyCode === 13 || e.which === 13) {
                 var tty = terminal_input.value;
                 TTYARR.push(tty);
                 terminal_TTYARR = { 'ttyarr': TTYARR };
-                // wtf_localStorage('terminal_TTYARR', JSON.stringify(terminal_TTYARR));
+                // wtf_localStorage('terminal_TTYARR', JSON.stringify(terminal_TTYARR));//todo
                 terminal_input.value = '';
                 var terminal_show = document.getElementById('terminal_show');
-                terminal_show.innerHTML += '\n-' + tty + '\n';
+                var ttycmd=tty[tty.length-1]==='/'?tty.slice(0,-1):tty;
+                terminal_show.innerHTML += '-' + ttycmd + '\n';
                 try {
-                    terminal.log(terminal.eval(tty));
+                    var evalreturn=terminal.eval(tty);
+                    if(evalreturn!==''){
+                        terminal.log(evalreturn);
+                    }  
                 } catch (e) {
                     terminal.log(e);
                 }
@@ -471,15 +179,28 @@ right:50%;
         terminal_modalbg.innerHTML = '<div id="terminal_modalbg" style="display:none"></div>';
         document.body.appendChild(terminal_modalbg);
 
-        window.onunload = function() {
-            //save log
-            var log = wtf_localStorage('terminal_log') + document.getElementById('terminal_show').innerHTML;
-            wtf_localStorage('terminal_log', log);
-        }
+        // window.onunload = function() {//todo
+        //     //save log
+        //     var log = wtf_localStorage('terminal_log') + document.getElementById('terminal_show').innerHTML;
+        //     wtf_localStorage('terminal_log', log);
+        // }
     }
+    var ttycache=[];
     terminal.eval = function(tty) {
-        var output = eval.call(window, tty);
-        return output;
+        if(tty[tty.length-1]==='/'){
+            ttycache.push(tty.slice(0,-1));
+            return '';
+        }else{
+            ttyconcat='';
+            for(var i=0;i<ttycache.length;i++){
+                ttyconcat+=ttycache[i];
+            }
+            ttyconcat+=tty;
+            ttycache=[];
+            var output = eval.call(window, ttyconcat);
+            return output;
+        }
+        
     }
     terminal._alerttimer = null;
     terminal.alert = function(text, hidetime) {
@@ -649,10 +370,23 @@ right:50%;
         }
     }
 
+    terminal.print=function(msg){
+        var show = document.getElementById('terminal_show');
+        show.innerHTML += msg;
+        if (this.debug) {
+            console.log(output);
+        }
+    }
+
     terminal.consoleLocalLog=function(){
         console.log(wtf_localStorage('terminal_log'));
     }
+
+    terminal._wtfWrapTag=function(tag,value,attr){
+        return '<' + tag + ' ' + attr + '>' + value + '</' + tag + '>';
+    }
+
+
     return terminal;
 })()
-
 var term = terminal;
