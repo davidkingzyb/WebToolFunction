@@ -110,7 +110,7 @@ var wtf = (function() {
         xhr.send(data);
     };
 
-    wtf.reqstr = function(o) {
+    wtf.reqStr = function(o) {
         var reqstr = '';
         for (var i in o) {
             reqstr += i + '=' + o[i] + '&'
@@ -126,11 +126,37 @@ var wtf = (function() {
     wtf.htmlEscape = function(html) {
         return html.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     };
-    wtf.urlquery = function(name, url) {
+    wtf.urlQuery = function(name, url) {
         var url = url || window.location.search;
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
+
+    wtf.parseUrl = function(url) {
+        var parser = document.createElement("a"),
+            q = {},
+            queries, key, value
+
+        parser.href = url;
+        queries = parser.search.replace(/^\?/, "").split("&");
+        for (var i = 0; i < queries.length; i++) {
+            var query = queries[i];
+            key = query.split("=")[0]
+            value = query.split("=")[1]
+            q[key] = value
+        }
+
+        return {
+            protocol: parser.protocol,
+            host: parser.host,
+            hostname: parser.hostname,
+            port: parser.port,
+            pathname: parser.pathname,
+            q: q,
+            hash: parser.hash
+        }
+    }
+
     wtf.localStorage = function(name, value) {
         if (wtf.typeOf(value) === 'null') {
             localStorage.removeItem(name);
@@ -261,13 +287,13 @@ var wtf = (function() {
         }
     };
 
-    wtf.imgToBase64 = function(img,type) {
+    wtf.imgToBase64 = function(img, type) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
         canvas.height = img.height;
         canvas.width = img.width;
         ctx.drawImage(img, 0, 0);
-        var t=type||'image/jpeg';
+        var t = type || 'image/jpeg';
         var base64 = canvas.toDataURL(t);
         canvas = null;
         return base64;

@@ -17,11 +17,12 @@
         <div>press F9 open terminal</div>
         <h2 class="js">wtf.js</h2>
         <ul>
-            <li><a href="javascript:testreqstr()">wtf.reqstr(obj)</a></li>
+            <li><a href="javascript:testreqStr()">wtf.reqStr(obj)</a></li>
             <li><a href="javascript:testget()">wtf.get(url,callback)</a></li>
             <li><a href="javascript:testpost()">wtf.post(url,data,callback)</a></li>
             <li><a href="javascript:test$()">wtf.$(selector)</a></li>
-            <li><a href="javascript:testurlquery()">wtf.urlquery(name)</a></li>
+            <li><a href="javascript:testurlQuery()">wtf.urlQuery(name)</a></li>
+            <li><a href="javascript:testparseUrl()">wtf.parseUrl(url)</a></li>
             <li><a href="javascript:testlocalStorage()">wtf.localStorage(name,value)</a></li>
             <li><a href="javascript:testsessionStorage()">wtf.sessionStorage(name,value)</a></li>
             <li><a href="javascript:test$cookie()">wtf.$cookie(name,value,time)</a></li>
@@ -54,12 +55,12 @@
     terminal.istui=true;
     terminal.init();
 
-    function testreqstr() {
-        var r = wtf.reqstr({
+    function testreqStr() {
+        var r = wtf.reqStr({
             q: 1,
             qq: 2
         });
-        terminal.log('testreqstr:', r);
+        terminal.log('testreqStr:', r);
     }
 
     function testget() {
@@ -88,9 +89,14 @@
         console.log(wtf.$tag('h2'))
     }
 
-    function testurlquery() {
-        var q = wtf.urlquery('obj', 'http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}')
+    function testurlQuery() {
+        var q = wtf.urlQuery('obj', 'http://dkzhome.sinaapp.com/clio?func=dotree&obj={"a":1,"b":[1,2]}')
         terminal.log(q)
+    }
+
+    function testparseUrl(){
+        var testurl='https://davidkingzyb.tech:8080/shanhai/111?a=1&b=2&c=3#hash';
+        terminal.log(wtf.parseUrl(testurl));
     }
 
     function teststorage(storage) {
