@@ -287,6 +287,8 @@ var wtf = (function() {
         }
     };
 
+    //img.crossOrigin="anonymous";//hack
+    //img.onload=function(){wtf.imgToBase64(img)}
     wtf.imgToBase64 = function(img, type) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
