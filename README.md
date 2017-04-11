@@ -87,6 +87,12 @@ wtf.$tag('tag')
 var q=wtf.urlquery(q,'?q=1&qq=2');
 ```
 
+#### wtf.parseUrl(url)
+
+```js
+var urlo=wtf.parseUrl(url)
+```
+
 #### wtf.localStorage(name[,value)
 
 #### wtf.sessionStorage(name[,value)
