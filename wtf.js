@@ -134,7 +134,7 @@ var wtf = (function() {
 
     wtf.parseUrl = function(url) {
         var parser = document.createElement("a"),
-            q = {},
+            req = {},
             queries, key, value
 
         parser.href = url;
@@ -143,7 +143,7 @@ var wtf = (function() {
             var query = queries[i];
             key = query.split("=")[0]
             value = query.split("=")[1]
-            q[key] = value
+            req[key] = value
         }
 
         return {
@@ -152,7 +152,7 @@ var wtf = (function() {
             hostname: parser.hostname,
             port: parser.port,
             pathname: parser.pathname,
-            q: q,
+            req: req,
             hash: parser.hash
         }
     }

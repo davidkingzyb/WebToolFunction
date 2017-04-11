@@ -12,11 +12,11 @@ Web tool functions for front-end developer
 
 [Chrome App](https://github.com/davidkingzyb/WebToolFunction/tree/app)
 
-##Try
+## Try
 
 [http://davidkingzyb.github.io/WebToolFunction](http://davidkingzyb.github.io/WebToolFunction)
 
-##List
+## List
 
 
 - [**init.less**](#initless) reset css
@@ -26,30 +26,30 @@ Web tool functions for front-end developer
 
 
 
-##API
+## API
 
-###init.less
+### init.less
 
 reset css
 
 	$lessc init.less > static/style.css
 
-###tui.less
+### tui.less
 
     $lessc tui.less > static/tui.css
 
 
-###wtf.js
+### wtf.js
 
 some useful web tool functions
 
-####wtf.reqstr(obj)
+#### wtf.reqstr(obj)
 
 ```js
 var qstr=wtf.reqstr({'q':'v','qq':'vv'}) //'q=v&qq=vv'
 ```
 	
-####wtf.get(url,callback(d)[,onerror(xhr))
+#### wtf.get(url,callback(d)[,onerror(xhr))
 
 ajax GET function
 
@@ -59,7 +59,7 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 })
 ```
 	
-####wtf.post(url,data,callback(d)[,onerror(xhr)[,content_type)
+#### wtf.post(url,data,callback(d)[,onerror(xhr)[,content_type)
 
 ajax Post function
 
@@ -69,7 +69,7 @@ wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
 })
 ```
 
-####wtf.$(selector)
+#### wtf.$(selector)
 
 selector
 
@@ -81,19 +81,19 @@ wtf.$cls('cls')
 wtf.$tag('tag')
 ```
 
-####wtf.urlquery(name[,url)
+#### wtf.urlquery(name[,url)
 
 ```js
 var q=wtf.urlquery(q,'?q=1&qq=2');
 ```
 
-####wtf.localStorage(name[,value)
+#### wtf.localStorage(name[,value)
 
-####wtf.sessionStorage(name[,value)
+#### wtf.sessionStorage(name[,value)
 
-####wtf.$cookie(name[,value[,time)
+#### wtf.$cookie(name[,value[,time)
 
-####wtf.cookies
+#### wtf.cookies
 
 - getItem(name)
 - setItem(name, value[, end[, path[, domain[, secure)
@@ -102,7 +102,7 @@ var q=wtf.urlquery(q,'?q=1&qq=2');
 - keys()
 - clear()
 
-####wtf.loadScript(src[,callback)
+#### wtf.loadScript(src[,callback)
 
 load script file
 
@@ -112,37 +112,37 @@ wtf.loadScript('../static/lib/wtf.js',function(){
 })
 ```
 
-####wtf.loadStyle(url)
+#### wtf.loadStyle(url)
 
-####wtf.htmlEscape(html)
+#### wtf.htmlEscape(html)
 
-####wtf.wrapTag(tag,value,attr)
+#### wtf.wrapTag(tag,value,attr)
 
 wrap html tag
 
-####wtf.typeOf(obj)
+#### wtf.typeOf(obj)
 
-####wtf.imgToBase64(img,type)
+#### wtf.imgToBase64(img,type)
 
-###terminal.js
+### terminal.js
 
 console in your website
 
 a command user interface for debug web application
 
-####terminal.isbig
+#### terminal.isbig
 
 big terminal 800x600
 
 - default=false
 
-####terminal.debug
+#### terminal.debug
 
 use console too
 
 - default=false
 
-####terminal.catcherr
+#### terminal.catcherr
 
 catch gobal error (window.onerror)
 
@@ -150,37 +150,37 @@ catch gobal error (window.onerror)
 
 - default=false
 
-####terminal.init()
+#### terminal.init()
 
 use terminal
 
-####terminal.ismodalbg
+#### terminal.ismodalbg
 
 always use modal dialoge
 
 - default=false
 
-####terminal.showmodalbg()
+#### terminal.showmodalbg()
 
 use modal dialoge
 
-####terminal.show()
+#### terminal.show()
 
 or press `F9`
 
-####terminal.log(msg1[,msg2...)
+#### terminal.log(msg1[,msg2...)
 
-####terminal.consoleLocalLog()
+#### terminal.consoleLocalLog()
 
 console log all terminal log in localstorage
 
-####terminal.alert(msg,timeout)
+#### terminal.alert(msg,timeout)
 
-####terminal.confirm(msg,callback)
+#### terminal.confirm(msg,callback)
 
-####terminal.prompt(msg,callback)
+#### terminal.prompt(msg,callback)
 
-##Liscense
+## Liscense
 
 **MIT**
 	
