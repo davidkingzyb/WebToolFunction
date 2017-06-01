@@ -99,15 +99,22 @@ var wtf = (function() {
             }
         }
         xhr.open('POST', url, true);
+        var datap=data;
         if (content_type === 'json') {
             xhr.setRequestHeader("Content-type", "application/json");
+            // raw data
         } else if (content_type === 'formdata') {
             // dont set header
             // xhr.setRequestHeader("Content-type", "multipart/form-data");
+            datap=new FormData();
+            for(var k in data){
+                datap.append(k,data[k]);
+            }
         } else {
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            datap=wtf.reqStr(data);
         }
-        xhr.send(data);
+        xhr.send(datap);
     };
 
     wtf.reqStr = function(o) {

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>about javascript</title>
+    <script type="text/javascript" src="prototypes.js"></script>
+    <script type="text/javascript" src="terminal.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+term.init();
+term.debug=true;
+function testArrayRange(){
+    term.log('testArrayRange')
+    term.log(range(10));
+}
+
+function testArrayRandom(){
+    var arrsort=range(10);
+    term.log('testArrayRandom')
+    term.log(arrsort.random());
+}
+
+function testArrayIndexOf(){
+    var arrsort=range(10);
+    term.log('testArrayIndexOf 0 5');
+    term.log(arrsort.indexOf(0));
+    term.log(arrsort.indexOf(5));
+}
+function testArrayRemove(){
+    var arrsort=range(10);
+    term.log('testArrayRemove 7');
+    term.log(arrsort);
+    arrsort.remove(7);
+    term.log(arrsort);
+}
+function testArrayBinarySearch(){
+    var arrsort=[0,1,2,3,4,5,6,7,8,9];
+    term.log('testArrayBinarySearch 3 7');
+    term.log(arrsort.binarySearch(3));
+    term.log(arrsort.binarySearch(7));
+}
+function testArrayCopyAndClone(){
+
+    var arrsort=range(10);
+    term.log('testArrayCopy');
+    var arrsort1=arrsort.copy();
+    term.log(arrsort==arrsort1); 
+    arrsort1.push(555);
+    term.log(arrsort);
+    term.log(arrsort1);
+    var arrarr=[1,[1,[1,2,3],3],3];
+    var arrarr1=arrarr.copy();
+    term.log(arrarr[1][1]==arrarr1[1][1]);
+    arrarr[1][1].push(555);
+    term.log(arrarr[1][1]);
+    term.log(arrarr1[1][1]);
+
+    var arr=range(10);
+    term.log('testArrayClone');
+    var arr1=arr.clone();
+    term.log(arr==arr1); 
+    arr1.push(555);
+    term.log(arr);
+    term.log(arr1);
+    var arrr=[1,[1,[1,2,3],3],3];
+    var arrr1=arrr.clone();
+    term.log(arrr[1][1]==arrr1[1][1]);
+    arrr[1][1].push(555);
+    term.log(arrr[1][1]);
+    term.log(arrr1[1][1]);
+}
+function testArrayQuickSort(){
+    term.log('testArrayQuickSort');
+    var arr=range(10).random();
+    term.log(arr);
+    term.log(arr.quickSort());
+}
+function testArrayHeapSort(){
+    term.log('testArrayHeapSort');
+    var arr=range(10).random();
+    term.log(arr);
+    term.log(arr.heapSort());
+}    
+function testArrayMergeSort(){
+    term.log('testArrayMergeSort');
+    var arr=range(10).random();
+    term.log(arr);
+    term.log(arr.mergeSort());
+}
+function testObjectCopyAndClone(){
+    term.log('testObjectCopy');
+    var o={
+        a:[1,2,3],
+        b:2,
+        c:3,
+        d:{
+            da:1,
+            db:2
+        },
+        f:function(aa){console.log(aa||'hello')}
+    }
+    var ocopy=o.copy();
+    // ocopy['e']=4;
+    console.log(o===ocopy,o,ocopy);
+
+    term.log('testObjectClone');
+    var oo={
+        a:[1,2,3],
+        b:2,
+        c:3,
+        d:{
+            da:1,
+            db:2
+        },
+        f:function(aa){console.log(aa||'hello')}
+    }
+    var oclone=oo.clone();
+    oclone['e']=4;
+    console.log(oo===oclone,oo,oclone);
+
+
+    // //circle
+    var o0={ref:null};
+    var o1={ref:o0};
+    o0.ref=o1;
+    console.log(o0);
+    // //error
+    // console.log(JSON.stringify(o0));
+    // console.log(JSON.stringify(o1));
+    // var o2=o0.clone();
+    // console.log(o2);
+    
+}
+
+function testObjectType(){
+    term.log([].type());
+    term.log({}.type());
+    term.log('a'.type());
+    var num=9;
+    var func=function(){};
+    var re=/0-9/;
+    var date=new Date();
+    var bo=true;
+    term.log(num.type());
+    term.log(func.type());
+    term.log(re.type());
+    term.log(date.type());
+    term.log(bo.type());
+}
+
+function testFunctionClone(){
+    var func=function(msg){
+        var m=msg||'hello';
+        console.log('func',m);
+    }
+    func();
+    var ff=func.clone();
+    ff('aabb');
+
+}
+
+function testArrayUnique(){
+    var l=[1,1,2,2,3,3];
+    term.log(l.unique());
+}
+
+function testArrayReduceDimension(){
+    var l=[1,2,[3,4,[5,[6,[7,8],9]],10]];
+    term.log(l.reduceDimension());
+}
+
+function testObjectConcat(){
+    var o1={a:1,b:2,c:3};
+    var o2={d:4,e:5,f:6};
+    var o3=o1.concat(o2);
+    term.log(o1,o2,o3);
+}
+
+    </script>
+
+
+<h1>prototype</h1>
+<h2>Array</h2>
+<ul>
+    <li><a href="javascript:testArrayRange()">var arr=range(len)</a></li>
+    <li><a href="javascript:testArrayRandom()">arr.random()</a></li>
+    <li><a href="javascript:testArrayIndexOf()">arr.indexOf(key)</a></li>
+    <li><a href="javascript:testArrayRemove()">arr.remove(key)</a></li>
+    <li><a href="javascript:testArrayCopyAndClone()">arr.copy() and arr.clone()</a></li>
+    <li><a href="javascript:testArrayBinarySearch()">arr.binarySearch(key,low?,high?)</a></li>
+    <li><a href="javascript:testArrayQuickSort()">arr.quickSort()</a></li>
+    <li><a href="javascript:testArrayHeapSort()">arr.heapSort()</a></li>
+    <li><a href="javascript:testArrayMergeSort()">arr.MergeSort()</a></li>
+    <li><a href="javascript:testArrayUnique()">arr.unique()</a></li>
+    <li><a href="javascript:testArrayReduceDimension()">arr.reduceDimension()</a></li>
+</ul>
+<h2>Object</h2>
+<ul>
+    <li><a href="javascript:testObjectCopyAndClone()">obj.copy() and obj.clone()</a></li>
+    <li><a href="javascript:testObjectType()">obj.type()</a></li>
+    <li><a href="javascript:testObjectConcat()">obj.concat(o)</a></li>
+</ul>
+<h2>Function</h2>
+<ul>
+    <li><a href="javascript:testFunctionClone()">func.clone()</a></li>
+</ul>
+
+
+
+</body>
+</html>

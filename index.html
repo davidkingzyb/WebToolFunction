@@ -72,7 +72,7 @@
     }
 
     function testpost() {
-        wtf.post('http://dkzhome.sinaapp.com/clio', 'func=dotree&obj={"a":1,"b":[1,2]}', function(d) {
+        wtf.post('http://127.0.0.1:5000/signin', {'token':'5df09278b5d947ed3fdcaaca330a4422'}, function(d) {
             terminal.log(d);
 
         }, function(e) {

@@ -18,11 +18,9 @@ Web tool functions for front-end developer
 
 ## List
 
-
-- [**init.less**](#initless) reset css
-- [**tui.less**](#tuiless) Types User Interface
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**terminal.js**](#terminaljs) console in your website
+- [**prototypes.js**](#prototypesjs) some useful prototype extend function
 
 
 
@@ -64,7 +62,7 @@ wtf.get('http://www.test.com/get?q=xx',function(data){
 ajax Post function
 
 ```js
-wtf.post('http://www.test.com','q=xx&qq=xxx',function(data){
+wtf.post('http://www.test.com',{'q':1},function(data){
 	console.log(data);
 })
 ```
