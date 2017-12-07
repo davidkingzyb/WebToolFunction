@@ -325,6 +325,7 @@ var wtf = (function() {
         return document.getElementsByTagName(tag);
     };
 
+    //@fmt:'yy/MM/dd hh:mm:ss'
     wtf.dateFormat=function(date,fmt){
         var o = {
             "M+": date.getMonth() + 1, 

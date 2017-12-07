@@ -122,6 +122,8 @@ wtf.loadScript('../static/lib/wtf.js',function(){
 
 #### wtf.wrapTag(tag,value,attr)
 
+#### wtf.dateFormat(date,fmt)
+
 wrap html tag
 
 #### wtf.typeOf(obj)

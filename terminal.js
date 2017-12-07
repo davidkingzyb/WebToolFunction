@@ -364,6 +364,7 @@ var terminal = (function() {
         //console.log('terminal: '+output);
         var show = document.getElementById('terminal_show');
         show.innerHTML += output + '\n';
+        show.scrollTop = show.scrollHeight;
         if (this.debug) {
             console.log(output);
         }
