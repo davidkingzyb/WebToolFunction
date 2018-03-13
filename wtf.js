@@ -360,3 +360,5 @@ var wtf = (function() {
 
     return wtf;
 })();
+
+exports.webtoolfunction=wtf;

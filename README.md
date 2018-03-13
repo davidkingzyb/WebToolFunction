@@ -8,34 +8,20 @@
 
 Web tool functions for front-end developer
 
-[Chrome Extension](https://github.com/davidkingzyb/WebToolFunction/blob/chrome/chromeREADME.md)
-
-[Chrome App](https://github.com/davidkingzyb/WebToolFunction/tree/app)
-
-## Try
+## Demo
 
 [http://davidkingzyb.github.io/WebToolFunction](http://davidkingzyb.github.io/WebToolFunction)
+
+## Install
+
+`$ npm install webtoolfunction`
 
 ## List
 
 - [**wtf.js**](#wtfjs) some useful web tool functions
 - [**terminal.js**](#terminaljs) console in your website
-- [**prototypes.js**](#prototypesjs) some useful prototype extend function
-
-
 
 ## API
-
-### init.less
-
-reset css
-
-	$lessc init.less > static/style.css
-
-### tui.less
-
-    $lessc tui.less > static/tui.css
-
 
 ### wtf.js
 
@@ -186,7 +172,4 @@ console log all terminal log in localstorage
 
 #### terminal.prompt(msg,callback)
 
-## Liscense
-
-**MIT**
 	

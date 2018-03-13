@@ -389,4 +389,5 @@ var terminal = (function() {
 
     return terminal;
 })()
-var term = terminal;
+
+exports.term=terminal;

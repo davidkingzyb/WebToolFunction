@@ -1,0 +1,21 @@
+{
+  "name": "webtoolfunction",
+  "version": "1.0.0",
+  "description": "wtf is it?",
+  "main": "wtf.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidkingzyb/WebToolFunction.git"
+  },
+  "keywords": [
+    "wtf","webtoolfunction","WebToolFunction"
+  ],
+  "author": "DKZ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidkingzyb/WebToolFunction/issues"
+  },
+  "homepage": "https://github.com/davidkingzyb/WebToolFunction#readme"
+}
